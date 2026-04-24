@@ -18,14 +18,14 @@ now addresses that in two parts:
 
 Relevant files:
 
-- [streaming/scripts/extract_social_nav_data.py](</Users/yuni/CSCI7000 Final Code/streaming/scripts/extract_social_nav_data.py:1>)
-- [motion_control/scripts/social_nav_eval.py](</Users/yuni/CSCI7000 Final Code/motion_control/scripts/social_nav_eval.py:1>)
-- [social_nav_eval_prompts.py](</Users/yuni/CSCI7000 Final Code/social_nav_eval_prompts.py:1>)
-- [vlm_wrapper.py](</Users/yuni/CSCI7000 Final Code/vlm_wrapper.py:1>)
-- [motion_control/scripts/social_nav_controller.py](</Users/yuni/CSCI7000 Final Code/motion_control/scripts/social_nav_controller.py:1>)
-- [motion_control/scripts/vlm_only_controller.py](</Users/yuni/CSCI7000 Final Code/motion_control/scripts/vlm_only_controller.py:1>)
-- [motion_control/scripts/vlm_minimal_controller.py](</Users/yuni/CSCI7000 Final Code/motion_control/scripts/vlm_minimal_controller.py:1>)
-- [benchmark_runs/final_policy_v2_crossing](</Users/yuni/CSCI7000 Final Code/benchmark_runs/final_policy_v2_crossing>)
+- [streaming/scripts/extract_social_nav_data.py](streaming/scripts/extract_social_nav_data.py)
+- [motion_control/scripts/social_nav_eval.py](motion_control/scripts/social_nav_eval.py)
+- [social_nav_eval_prompts.py](social_nav_eval_prompts.py)
+- [vlm_wrapper.py](vlm_wrapper.py)
+- [motion_control/scripts/social_nav_controller.py](motion_control/scripts/social_nav_controller.py)
+- [motion_control/scripts/vlm_only_controller.py](motion_control/scripts/vlm_only_controller.py)
+- [motion_control/scripts/vlm_minimal_controller.py](motion_control/scripts/vlm_minimal_controller.py)
+- [benchmark_runs/final_policy_v2_crossing](benchmark_runs/final_policy_v2_crossing)
 
 ## Setup
 
@@ -59,9 +59,9 @@ Expected models:
 The offline pipeline is:
 
 1. Extract frames from a rosbag with
-   [streaming/scripts/extract_social_nav_data.py](</Users/yuni/CSCI7000 Final Code/streaming/scripts/extract_social_nav_data.py:1>).
+   [streaming/scripts/extract_social_nav_data.py](streaming/scripts/extract_social_nav_data.py).
 2. Build single-frame and sequence samples with
-   [motion_control/scripts/social_nav_eval.py](</Users/yuni/CSCI7000 Final Code/motion_control/scripts/social_nav_eval.py:1>).
+   [motion_control/scripts/social_nav_eval.py](motion_control/scripts/social_nav_eval.py).
 3. Run predictions through the wrapper or geometry baseline.
 4. Evaluate with sample-level metrics and bag-level summaries.
 
@@ -117,8 +117,8 @@ It also reports:
 
 For the final crossing-focused benchmark artifacts, see:
 
-- [benchmark_runs/final_policy_v2_crossing/aggregate_results.json](</Users/yuni/CSCI7000 Final Code/benchmark_runs/final_policy_v2_crossing/aggregate_results.json:1>)
-- [benchmark_runs/final_policy_v2_crossing/scenario_analysis.json](</Users/yuni/CSCI7000 Final Code/benchmark_runs/final_policy_v2_crossing/scenario_analysis.json:1>)
+- [benchmark_runs/final_policy_v2_crossing/aggregate_results.json](benchmark_runs/final_policy_v2_crossing/aggregate_results.json)
+- [benchmark_runs/final_policy_v2_crossing/scenario_analysis.json](benchmark_runs/final_policy_v2_crossing/scenario_analysis.json)
 
 ## Real-Time Safety Projection
 

@@ -49,14 +49,14 @@ The implemented system has four main parts:
 
 Key files:
 
-- [streaming/scripts/extract_social_nav_data.py](</Users/yuni/CSCI7000 Final Code/streaming/scripts/extract_social_nav_data.py:1>)
-- [motion_control/scripts/social_nav_eval.py](</Users/yuni/CSCI7000 Final Code/motion_control/scripts/social_nav_eval.py:1>)
-- [social_nav_eval_prompts.py](</Users/yuni/CSCI7000 Final Code/social_nav_eval_prompts.py:1>)
-- [vlm_wrapper.py](</Users/yuni/CSCI7000 Final Code/vlm_wrapper.py:1>)
-- [motion_control/scripts/social_nav_controller.py](</Users/yuni/CSCI7000 Final Code/motion_control/scripts/social_nav_controller.py:1>)
-- [motion_control/scripts/vlm_only_controller.py](</Users/yuni/CSCI7000 Final Code/motion_control/scripts/vlm_only_controller.py:1>)
-- [motion_control/scripts/vlm_minimal_controller.py](</Users/yuni/CSCI7000 Final Code/motion_control/scripts/vlm_minimal_controller.py:1>)
-- [README_social_nav.md](</Users/yuni/CSCI7000 Final Code/README_social_nav.md:1>)
+- [streaming/scripts/extract_social_nav_data.py](streaming/scripts/extract_social_nav_data.py)
+- [motion_control/scripts/social_nav_eval.py](motion_control/scripts/social_nav_eval.py)
+- [social_nav_eval_prompts.py](social_nav_eval_prompts.py)
+- [vlm_wrapper.py](vlm_wrapper.py)
+- [motion_control/scripts/social_nav_controller.py](motion_control/scripts/social_nav_controller.py)
+- [motion_control/scripts/vlm_only_controller.py](motion_control/scripts/vlm_only_controller.py)
+- [motion_control/scripts/vlm_minimal_controller.py](motion_control/scripts/vlm_minimal_controller.py)
+- [README_social_nav.md](README_social_nav.md)
 
 ## System Architecture
 
@@ -81,13 +81,13 @@ The two primary VLM backends are:
 - `Qwen3-VL-30B`
 - `InternVL-3.5-14B`
 
-They are accessed through the wrapper in [vlm_wrapper.py](</Users/yuni/CSCI7000 Final Code/vlm_wrapper.py:1>)
+They are accessed through the wrapper in [vlm_wrapper.py](vlm_wrapper.py)
 using OpenAI-compatible HTTP endpoints.
 
 Helper scripts for local wrapper launch:
 
-- [scripts/run_wrapper_qwen.sh](</Users/yuni/CSCI7000 Final Code/scripts/run_wrapper_qwen.sh:1>)
-- [scripts/run_wrapper_internvl.sh](</Users/yuni/CSCI7000 Final Code/scripts/run_wrapper_internvl.sh:1>)
+- [scripts/run_wrapper_qwen.sh](scripts/run_wrapper_qwen.sh)
+- [scripts/run_wrapper_internvl.sh](scripts/run_wrapper_internvl.sh)
 
 ## Action Space
 
@@ -136,7 +136,7 @@ The benchmark runs on extracted rosbag data and compares:
 
 The final crossing-focused benchmark artifacts are stored in:
 
-- [benchmark_runs/final_policy_v2_crossing](</Users/yuni/CSCI7000 Final Code/benchmark_runs/final_policy_v2_crossing>)
+- [benchmark_runs/final_policy_v2_crossing](benchmark_runs/final_policy_v2_crossing)
 
 Sequence evaluation settings used in the final policy:
 
@@ -169,8 +169,8 @@ The offline evaluator reports metrics used in the final report, including:
 
 Important outputs:
 
-- [benchmark_runs/final_policy_v2_crossing/aggregate_results.json](</Users/yuni/CSCI7000 Final Code/benchmark_runs/final_policy_v2_crossing/aggregate_results.json:1>)
-- [benchmark_runs/final_policy_v2_crossing/scenario_analysis.json](</Users/yuni/CSCI7000 Final Code/benchmark_runs/final_policy_v2_crossing/scenario_analysis.json:1>)
+- [benchmark_runs/final_policy_v2_crossing/aggregate_results.json](benchmark_runs/final_policy_v2_crossing/aggregate_results.json)
+- [benchmark_runs/final_policy_v2_crossing/scenario_analysis.json](benchmark_runs/final_policy_v2_crossing/scenario_analysis.json)
 
 ## Real-Time Safety Projection
 
@@ -249,6 +249,6 @@ navigation controller for Go1. The current strongest claim is:
 
 ## Related Documents
 
-- [final_proposal.mdx](/Users/yuni/vla-foundations/content/course/assignments/capstone/final_report/final_proposal.mdx)
-- [final_report.mdx](</Users/yuni/CSCI7000 Final Code/final_report.mdx:1>)
-- [README_social_nav.md](</Users/yuni/CSCI7000 Final Code/README_social_nav.md:1>)
+- `final_proposal.mdx` is maintained in the separate course-content repository.
+- [final_report.mdx](final_report.mdx)
+- [README_social_nav.md](README_social_nav.md)
