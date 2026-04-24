@@ -1,0 +1,10 @@
+{
+  "bag_id": "bag_11",
+  "bag_path": "rosbag/11.bag",
+  "extracted_dir": "/home/aaquib/where-am-I/extracted_social_nav/bag_11",
+  "input_mode": "extracted",
+  "labels_path": "/home/aaquib/where-am-I/benchmark_runs/final_policy_v1/bag_11/labels.csv",
+  "scenario_name": "stationary_person",
+  "sequence_samples_path": "/home/aaquib/where-am-I/benchmark_runs/final_policy_v1/bag_11/sequence_samples.jsonl",
+  "single_samples_path": "/home/aaquib/where-am-I/benchmark_runs/final_policy_v1/bag_11/single_samples.jsonl"
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "model": "InternVL",
+    "config": "BEFORE",
+    "action": "FORWARD",
+    "motion": "away",
+    "blocked": null,
+    "risk": "low",
+    "unc": "",
+    "num_images": 5
+  },
+  {
+    "model": "InternVL",
+    "config": "AFTER_current_prompt",
+    "action": "STOP",
+    "motion": "stationary",
+    "blocked": true,
+    "risk": "medium",
+    "unc": "",
+    "num_images": 5
+  },
+  {
+    "model": "InternVL",
+    "config": "AFTER_receding_fix",
+    "action": "FORWARD",
+    "motion": "receding",
+    "blocked": false,
+    "risk": "low",
+    "unc": "",
+    "num_images": 5
+  },
+  {
+    "model": "InternVL",
+    "config": "AFTER_receding_fix_tail",
+    "action": "FORWARD",
+    "motion": "receding",
+    "blocked": false,
+    "risk": "low",
+    "unc": "",
+    "num_images": 3
+  },
+  {
+    "model": "Qwen",
+    "config": "BEFORE",
+    "action": "FORWARD",
+    "motion": "away",
+    "blocked": null,
+    "risk": "low",
+    "unc": "",
+    "num_images": 5
+  },
+  {
+    "model": "Qwen",
+    "config": "AFTER_current_prompt",
+    "action": "STOP",
+    "motion": "stationary",
+    "blocked": true,
+    "risk": "high",
+    "unc": "Person is stationary and blocking the corridor; no clear lateral path is visible.",
+    "num_images": 5
+  },
+  {
+    "model": "Qwen",
+    "config": "AFTER_receding_fix",
+    "action": "FORWARD",
+    "motion": "receding",
+    "blocked": false,
+    "risk": "low",
+    "unc": "",
+    "num_images": 5
+  },
+  {
+    "model": "Qwen",
+    "config": "AFTER_receding_fix_tail",
+    "action": "FORWARD",
+    "motion": "receding",
+    "blocked": false,
+    "risk": "low",
+    "unc": "",
+    "num_images": 3
+  }
+]

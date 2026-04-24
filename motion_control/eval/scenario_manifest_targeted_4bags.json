@@ -1,0 +1,67 @@
+{
+  "description": "Targeted 4-bag subset (bag_03, bag_04, bag_05, bag_07) of the directional-avoidance manifest for activation diagnosis.",
+  "scenarios": [
+    {
+      "bag_id": "bag_03",
+      "bag_path": "rosbag/3.bag",
+      "extracted_dir": "extracted_social_nav/bag_03",
+      "scenario_name": "person_on_left",
+      "scenario_type": "lateral_person_static",
+      "expected_action": "RIGHT",
+      "human_presence": "single",
+      "human_position": "left",
+      "human_motion": "static",
+      "notes": "Person standing on the left; kept as a review-oriented side-position case.",
+      "primary_case": false,
+      "original_expected_action": "REVIEW",
+      "directional_avoidance_rationale": "Static person on the LEFT; prefer RIGHT as the open side under directional avoidance."
+    },
+    {
+      "bag_id": "bag_04",
+      "bag_path": "rosbag/4.bag",
+      "extracted_dir": "extracted_social_nav/bag_04",
+      "scenario_name": "person_on_right",
+      "scenario_type": "lateral_person_static",
+      "expected_action": "LEFT",
+      "human_presence": "single",
+      "human_position": "right",
+      "human_motion": "static",
+      "notes": "Person standing on the right; kept as a review-oriented side-position case.",
+      "primary_case": false,
+      "original_expected_action": "REVIEW",
+      "directional_avoidance_rationale": "Static person on the RIGHT; prefer LEFT as the open side under directional avoidance."
+    },
+    {
+      "bag_id": "bag_05",
+      "bag_path": "rosbag/5.bag",
+      "extracted_dir": "extracted_social_nav/bag_05",
+      "scenario_name": "right_to_left_crossing",
+      "scenario_type": "crossing_person",
+      "expected_action": "RIGHT",
+      "human_presence": "single",
+      "human_position": "mixed",
+      "human_motion": "right_to_left",
+      "notes": "Person crosses from right to left in front of the robot.",
+      "primary_case": true,
+      "original_expected_action": "STOP",
+      "directional_avoidance_rationale": "Right-to-left crossing (person moving LEFTWARD); avoid their future position by stepping RIGHT."
+    },
+    {
+      "bag_id": "bag_07",
+      "bag_path": "rosbag/7.bag",
+      "extracted_dir": "extracted_social_nav/bag_07",
+      "scenario_name": "left_to_right_crossing",
+      "scenario_type": "crossing_person",
+      "expected_action": "LEFT",
+      "human_presence": "single",
+      "human_position": "mixed",
+      "human_motion": "left_to_right",
+      "notes": "Closer left-to-right crossing case.",
+      "primary_case": true,
+      "original_expected_action": "STOP",
+      "directional_avoidance_rationale": "Left-to-right crossing (person moving RIGHTWARD); avoid their future position by stepping LEFT."
+    }
+  ],
+  "source_manifest": "scenario_manifest.json",
+  "label_policy": "directional_social_avoidance"
+}

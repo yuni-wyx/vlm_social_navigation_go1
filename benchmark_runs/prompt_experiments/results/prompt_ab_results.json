@@ -1,0 +1,610 @@
+[
+  {
+    "bag": "bag_08",
+    "model": "Qwen",
+    "config": "BEFORE",
+    "num_images": 5,
+    "frame_indices": [
+      206,
+      207,
+      208,
+      209,
+      210
+    ],
+    "action": "STOP",
+    "ok": true,
+    "err": "",
+    "lat": 6.34,
+    "response_json": {
+      "person_detected": true,
+      "motion": "approaching",
+      "risk_level": "high",
+      "recommended_action": "STOP"
+    },
+    "raw": "{\n  \"person_detected\": true,\n  \"motion\": \"approaching\",\n  \"risk_level\": \"high\",\n  \"recommended_action\": \"STOP\"\n}"
+  },
+  {
+    "bag": "bag_08",
+    "model": "Qwen",
+    "config": "AFTER_prompt",
+    "num_images": 5,
+    "frame_indices": [
+      206,
+      207,
+      208,
+      209,
+      210
+    ],
+    "action": "LEFT",
+    "ok": true,
+    "err": "",
+    "lat": 8.37,
+    "response_json": {
+      "person_detected": true,
+      "motion": "approaching",
+      "path_blocked_latest_frame": true,
+      "safer_lateral_side": "left",
+      "risk_level": "high",
+      "uncertainty_reason": "",
+      "recommended_action": "LEFT"
+    },
+    "raw": "{\n  \"person_detected\": true,\n  \"motion\": \"approaching\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"left\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"LEFT\"\n}"
+  },
+  {
+    "bag": "bag_08",
+    "model": "Qwen",
+    "config": "AFTER_tail",
+    "num_images": 3,
+    "frame_indices": [
+      208,
+      209,
+      210
+    ],
+    "action": "LEFT",
+    "ok": true,
+    "err": "",
+    "lat": 7.67,
+    "response_json": {
+      "person_detected": true,
+      "motion": "approaching",
+      "path_blocked_latest_frame": true,
+      "safer_lateral_side": "left",
+      "risk_level": "high",
+      "uncertainty_reason": "",
+      "recommended_action": "LEFT"
+    },
+    "raw": "{\n  \"person_detected\": true,\n  \"motion\": \"approaching\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"left\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"LEFT\"\n}"
+  },
+  {
+    "bag": "bag_08",
+    "model": "InternVL",
+    "config": "BEFORE",
+    "num_images": 5,
+    "frame_indices": [
+      206,
+      207,
+      208,
+      209,
+      210
+    ],
+    "action": "FORWARD",
+    "ok": true,
+    "err": "",
+    "lat": 1.77,
+    "response_json": {
+      "person_detected": true,
+      "motion": "right_to_left",
+      "risk_level": "low",
+      "recommended_action": "FORWARD"
+    },
+    "raw": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"right_to_left\",\n  \"risk_level\": \"low\",\n  \"recommended_action\": \"FORWARD\"\n}\n```"
+  },
+  {
+    "bag": "bag_08",
+    "model": "InternVL",
+    "config": "AFTER_prompt",
+    "num_images": 5,
+    "frame_indices": [
+      206,
+      207,
+      208,
+      209,
+      210
+    ],
+    "action": "REVIEW",
+    "ok": true,
+    "err": "",
+    "lat": 2.69,
+    "response_json": {
+      "person_detected": true,
+      "motion": "entering_late",
+      "path_blocked_latest_frame": false,
+      "safer_lateral_side": "none",
+      "risk_level": "low",
+      "uncertainty_reason": "Person appears only in the latest frame with unclear intent.",
+      "recommended_action": "REVIEW"
+    },
+    "raw": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"entering_late\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"Person appears only in the latest frame with unclear intent.\",\n  \"recommended_action\": \"REVIEW\"\n}\n```"
+  },
+  {
+    "bag": "bag_08",
+    "model": "InternVL",
+    "config": "AFTER_tail",
+    "num_images": 3,
+    "frame_indices": [
+      208,
+      209,
+      210
+    ],
+    "action": "FORWARD",
+    "ok": true,
+    "err": "",
+    "lat": 2.48,
+    "response_json": {
+      "person_detected": true,
+      "motion": "none",
+      "path_blocked_latest_frame": false,
+      "safer_lateral_side": "none",
+      "risk_level": "low",
+      "uncertainty_reason": "",
+      "recommended_action": "FORWARD"
+    },
+    "raw": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}\n```"
+  },
+  {
+    "bag": "bag_05",
+    "model": "Qwen",
+    "config": "BEFORE",
+    "num_images": 5,
+    "frame_indices": [
+      169,
+      170,
+      171,
+      172,
+      173
+    ],
+    "action": "STOP",
+    "ok": true,
+    "err": "",
+    "lat": 6.19,
+    "response_json": {
+      "person_detected": true,
+      "motion": "approaching",
+      "risk_level": "high",
+      "recommended_action": "STOP"
+    },
+    "raw": "{\n  \"person_detected\": true,\n  \"motion\": \"approaching\",\n  \"risk_level\": \"high\",\n  \"recommended_action\": \"STOP\"\n}"
+  },
+  {
+    "bag": "bag_05",
+    "model": "Qwen",
+    "config": "AFTER_prompt",
+    "num_images": 5,
+    "frame_indices": [
+      169,
+      170,
+      171,
+      172,
+      173
+    ],
+    "action": "STOP",
+    "ok": true,
+    "err": "",
+    "lat": 8.36,
+    "response_json": {
+      "person_detected": true,
+      "motion": "approaching",
+      "path_blocked_latest_frame": true,
+      "safer_lateral_side": "none",
+      "risk_level": "high",
+      "uncertainty_reason": "",
+      "recommended_action": "STOP"
+    },
+    "raw": "{\n  \"person_detected\": true,\n  \"motion\": \"approaching\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}"
+  },
+  {
+    "bag": "bag_05",
+    "model": "Qwen",
+    "config": "AFTER_tail",
+    "num_images": 3,
+    "frame_indices": [
+      171,
+      172,
+      173
+    ],
+    "action": "STOP",
+    "ok": true,
+    "err": "",
+    "lat": 7.68,
+    "response_json": {
+      "person_detected": true,
+      "motion": "stationary",
+      "path_blocked_latest_frame": true,
+      "safer_lateral_side": "none",
+      "risk_level": "high",
+      "uncertainty_reason": "",
+      "recommended_action": "STOP"
+    },
+    "raw": "{\n  \"person_detected\": true,\n  \"motion\": \"stationary\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}"
+  },
+  {
+    "bag": "bag_05",
+    "model": "InternVL",
+    "config": "BEFORE",
+    "num_images": 5,
+    "frame_indices": [
+      169,
+      170,
+      171,
+      172,
+      173
+    ],
+    "action": "STOP",
+    "ok": true,
+    "err": "",
+    "lat": 1.75,
+    "response_json": {
+      "person_detected": true,
+      "motion": "approaching",
+      "risk_level": "medium",
+      "recommended_action": "STOP"
+    },
+    "raw": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"approaching\",\n  \"risk_level\": \"medium\",\n  \"recommended_action\": \"STOP\"\n}\n```"
+  },
+  {
+    "bag": "bag_05",
+    "model": "InternVL",
+    "config": "AFTER_prompt",
+    "num_images": 5,
+    "frame_indices": [
+      169,
+      170,
+      171,
+      172,
+      173
+    ],
+    "action": "STOP",
+    "ok": true,
+    "err": "",
+    "lat": 2.53,
+    "response_json": {
+      "person_detected": true,
+      "motion": "none",
+      "path_blocked_latest_frame": true,
+      "safer_lateral_side": "none",
+      "risk_level": "high",
+      "uncertainty_reason": "Person is stationary and blocking the corridor.",
+      "recommended_action": "STOP"
+    },
+    "raw": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"none\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"Person is stationary and blocking the corridor.\",\n  \"recommended_action\": \"STOP\"\n}\n```"
+  },
+  {
+    "bag": "bag_05",
+    "model": "InternVL",
+    "config": "AFTER_tail",
+    "num_images": 3,
+    "frame_indices": [
+      171,
+      172,
+      173
+    ],
+    "action": "STOP",
+    "ok": true,
+    "err": "",
+    "lat": 2.55,
+    "response_json": {
+      "person_detected": true,
+      "motion": "none",
+      "path_blocked_latest_frame": true,
+      "safer_lateral_side": "none",
+      "risk_level": "high",
+      "uncertainty_reason": "",
+      "recommended_action": "STOP"
+    },
+    "raw": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"none\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}\n```"
+  },
+  {
+    "bag": "bag_09",
+    "model": "Qwen",
+    "config": "BEFORE",
+    "num_images": 5,
+    "frame_indices": [
+      175,
+      176,
+      177,
+      178,
+      179
+    ],
+    "action": "STOP",
+    "ok": true,
+    "err": "",
+    "lat": 6.25,
+    "response_json": {
+      "person_detected": true,
+      "motion": "approaching",
+      "risk_level": "high",
+      "recommended_action": "STOP"
+    },
+    "raw": "{\n  \"person_detected\": true,\n  \"motion\": \"approaching\",\n  \"risk_level\": \"high\",\n  \"recommended_action\": \"STOP\"\n}"
+  },
+  {
+    "bag": "bag_09",
+    "model": "Qwen",
+    "config": "AFTER_prompt",
+    "num_images": 5,
+    "frame_indices": [
+      175,
+      176,
+      177,
+      178,
+      179
+    ],
+    "action": "STOP",
+    "ok": true,
+    "err": "",
+    "lat": 8.38,
+    "response_json": {
+      "person_detected": true,
+      "motion": "stationary",
+      "path_blocked_latest_frame": true,
+      "safer_lateral_side": "none",
+      "risk_level": "high",
+      "uncertainty_reason": "",
+      "recommended_action": "STOP"
+    },
+    "raw": "{\n  \"person_detected\": true,\n  \"motion\": \"stationary\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}"
+  },
+  {
+    "bag": "bag_09",
+    "model": "Qwen",
+    "config": "AFTER_tail",
+    "num_images": 3,
+    "frame_indices": [
+      177,
+      178,
+      179
+    ],
+    "action": "STOP",
+    "ok": true,
+    "err": "",
+    "lat": 7.7,
+    "response_json": {
+      "person_detected": true,
+      "motion": "stationary",
+      "path_blocked_latest_frame": true,
+      "safer_lateral_side": "none",
+      "risk_level": "high",
+      "uncertainty_reason": "",
+      "recommended_action": "STOP"
+    },
+    "raw": "{\n  \"person_detected\": true,\n  \"motion\": \"stationary\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}"
+  },
+  {
+    "bag": "bag_09",
+    "model": "InternVL",
+    "config": "BEFORE",
+    "num_images": 5,
+    "frame_indices": [
+      175,
+      176,
+      177,
+      178,
+      179
+    ],
+    "action": "STOP",
+    "ok": true,
+    "err": "",
+    "lat": 1.74,
+    "response_json": {
+      "person_detected": true,
+      "motion": "approaching",
+      "risk_level": "medium",
+      "recommended_action": "STOP"
+    },
+    "raw": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"approaching\",\n  \"risk_level\": \"medium\",\n  \"recommended_action\": \"STOP\"\n}\n```"
+  },
+  {
+    "bag": "bag_09",
+    "model": "InternVL",
+    "config": "AFTER_prompt",
+    "num_images": 5,
+    "frame_indices": [
+      175,
+      176,
+      177,
+      178,
+      179
+    ],
+    "action": "STOP",
+    "ok": true,
+    "err": "",
+    "lat": 2.3,
+    "response_json": {
+      "person_detected": true,
+      "motion": "approaching",
+      "path_blocked_latest_frame": true,
+      "safer_lateral_side": "none",
+      "risk_level": "high",
+      "uncertainty_reason": "",
+      "recommended_action": "STOP"
+    },
+    "raw": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"approaching\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}\n```"
+  },
+  {
+    "bag": "bag_09",
+    "model": "InternVL",
+    "config": "AFTER_tail",
+    "num_images": 3,
+    "frame_indices": [
+      177,
+      178,
+      179
+    ],
+    "action": "STOP",
+    "ok": true,
+    "err": "",
+    "lat": 2.43,
+    "response_json": {
+      "person_detected": true,
+      "motion": "approaching",
+      "path_blocked_latest_frame": true,
+      "safer_lateral_side": "none",
+      "risk_level": "high",
+      "uncertainty_reason": "",
+      "recommended_action": "STOP"
+    },
+    "raw": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"approaching\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}\n```"
+  },
+  {
+    "bag": "bag_10",
+    "model": "Qwen",
+    "config": "BEFORE",
+    "num_images": 5,
+    "frame_indices": [
+      190,
+      191,
+      192,
+      193,
+      194
+    ],
+    "action": "STOP",
+    "ok": true,
+    "err": "",
+    "lat": 6.23,
+    "response_json": {
+      "person_detected": true,
+      "motion": "approaching",
+      "risk_level": "high",
+      "recommended_action": "STOP"
+    },
+    "raw": "{\n  \"person_detected\": true,\n  \"motion\": \"approaching\",\n  \"risk_level\": \"high\",\n  \"recommended_action\": \"STOP\"\n}"
+  },
+  {
+    "bag": "bag_10",
+    "model": "Qwen",
+    "config": "AFTER_prompt",
+    "num_images": 5,
+    "frame_indices": [
+      190,
+      191,
+      192,
+      193,
+      194
+    ],
+    "action": "STOP",
+    "ok": true,
+    "err": "",
+    "lat": 8.41,
+    "response_json": {
+      "person_detected": true,
+      "motion": "stationary",
+      "path_blocked_latest_frame": true,
+      "safer_lateral_side": "none",
+      "risk_level": "high",
+      "uncertainty_reason": "",
+      "recommended_action": "STOP"
+    },
+    "raw": "{\n  \"person_detected\": true,\n  \"motion\": \"stationary\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}"
+  },
+  {
+    "bag": "bag_10",
+    "model": "Qwen",
+    "config": "AFTER_tail",
+    "num_images": 3,
+    "frame_indices": [
+      192,
+      193,
+      194
+    ],
+    "action": "STOP",
+    "ok": true,
+    "err": "",
+    "lat": 7.68,
+    "response_json": {
+      "person_detected": true,
+      "motion": "stationary",
+      "path_blocked_latest_frame": true,
+      "safer_lateral_side": "none",
+      "risk_level": "high",
+      "uncertainty_reason": "",
+      "recommended_action": "STOP"
+    },
+    "raw": "{\n  \"person_detected\": true,\n  \"motion\": \"stationary\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}"
+  },
+  {
+    "bag": "bag_10",
+    "model": "InternVL",
+    "config": "BEFORE",
+    "num_images": 5,
+    "frame_indices": [
+      190,
+      191,
+      192,
+      193,
+      194
+    ],
+    "action": "FORWARD",
+    "ok": true,
+    "err": "",
+    "lat": 1.71,
+    "response_json": {
+      "person_detected": true,
+      "motion": "none",
+      "risk_level": "low",
+      "recommended_action": "FORWARD"
+    },
+    "raw": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"none\",\n  \"risk_level\": \"low\",\n  \"recommended_action\": \"FORWARD\"\n}\n```"
+  },
+  {
+    "bag": "bag_10",
+    "model": "InternVL",
+    "config": "AFTER_prompt",
+    "num_images": 5,
+    "frame_indices": [
+      190,
+      191,
+      192,
+      193,
+      194
+    ],
+    "action": "STOP",
+    "ok": true,
+    "err": "",
+    "lat": 2.24,
+    "response_json": {
+      "person_detected": true,
+      "motion": "stationary",
+      "path_blocked_latest_frame": true,
+      "safer_lateral_side": "none",
+      "risk_level": "high",
+      "uncertainty_reason": "",
+      "recommended_action": "STOP"
+    },
+    "raw": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"stationary\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}\n```"
+  },
+  {
+    "bag": "bag_10",
+    "model": "InternVL",
+    "config": "AFTER_tail",
+    "num_images": 3,
+    "frame_indices": [
+      192,
+      193,
+      194
+    ],
+    "action": "STOP",
+    "ok": true,
+    "err": "",
+    "lat": 2.4,
+    "response_json": {
+      "person_detected": true,
+      "motion": "none",
+      "path_blocked_latest_frame": true,
+      "safer_lateral_side": "none",
+      "risk_level": "high",
+      "uncertainty_reason": "",
+      "recommended_action": "STOP"
+    },
+    "raw": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"none\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}\n```"
+  }
+]

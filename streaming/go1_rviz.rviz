@@ -1,0 +1,264 @@
+Panels:
+  - Class: rviz/Displays
+    Help Height: 0
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Status1
+        - /LaserScan1
+        - /LaserScan1/Status1
+      Splitter Ratio: 0.5
+    Tree Height: 940
+  - Class: rviz/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+Preferences:
+  PromptSaveOnExit: true
+Toolbars:
+  toolButtonStyle: 2
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz/TF
+      Enabled: true
+      Filter (blacklist): ""
+      Filter (whitelist): ""
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+        base:
+          Value: true
+        base_link:
+          Value: true
+        base_link_rpy:
+          Value: true
+        camera_chin:
+          Value: true
+        camera_face:
+          Value: true
+        camera_left:
+          Value: true
+        camera_rearDown:
+          Value: true
+        camera_right:
+          Value: true
+        odom:
+          Value: true
+        trunk:
+          Value: true
+        trunk_level:
+          Value: true
+        uodom:
+          Value: true
+      Marker Alpha: 1
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: false
+      Show Axes: true
+      Show Names: true
+      Tree:
+        base:
+          odom:
+            trunk:
+              camera_chin:
+                {}
+              camera_face:
+                {}
+              camera_left:
+                {}
+              camera_rearDown:
+                {}
+              camera_right:
+                {}
+            trunk_level:
+              {}
+        uodom:
+          base_link:
+            {}
+          base_link_rpy:
+            {}
+      Update Interval: 0
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: LiDAR
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.019999999552965164
+      Style: Points
+      Topic: /velodyne_points_odom
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/LaserScan
+      Color: 0; 255; 0
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: LaserScan
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.029999999329447746
+      Style: Flat Squares
+      Topic: /scan_odom
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Class: rviz/Image
+      Enabled: true
+      Image Topic: /camera_face/left/image_raw
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Front Camera
+      Normalize Range: true
+      Queue Size: 1
+      Transport Hint: raw
+      Unreliable: false
+      Value: true
+    - Class: rviz/Image
+      Enabled: true
+      Image Topic: /camera_left/left/image_raw
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Left Camera
+      Normalize Range: true
+      Queue Size: 1
+      Transport Hint: raw
+      Unreliable: false
+      Value: true
+    - Class: rviz/Image
+      Enabled: true
+      Image Topic: /camera_right/left/image_raw
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Right Camera
+      Normalize Range: true
+      Queue Size: 1
+      Transport Hint: raw
+      Unreliable: false
+      Value: true
+    - Angle Tolerance: 0.10000000149011612
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: true
+      Enabled: true
+      Keep: 100
+      Name: Odometry
+      Position Tolerance: 0.10000000149011612
+      Queue Size: 10
+      Shape:
+        Alpha: 1
+        Axes Length: 1
+        Axes Radius: 0.10000000149011612
+        Color: 255; 25; 0
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1
+        Shaft Radius: 0.05000000074505806
+        Value: Arrow
+      Topic: /odom_fixed
+      Unreliable: false
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Default Light: true
+    Fixed Frame: odom
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz/Interact
+      Hide Inactive Objects: true
+    - Class: rviz/MoveCamera
+    - Class: rviz/FocusCamera
+  Value: true
+  Views:
+    Current:
+      Class: rviz/Orbit
+      Distance: 10
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.05999999865889549
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Field of View: 0.7853981852531433
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0
+      Focal Shape Fixed Size: true
+      Focal Shape Size: 0.05000000074505806
+      Invert Z Axis: false
+      Name: Current View
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.5803982019424438
+      Target Frame: <Fixed Frame>
+      Yaw: 0.525398313999176
+    Saved: ~
+Window Geometry:
+  Displays:
+    collapsed: false
+  Front Camera:
+    collapsed: false
+  Height: 2086
+  Hide Left Dock: false
+  Hide Right Dock: false
+  Left Camera:
+    collapsed: false
+  QMainWindow State: 000000ff00000000fd0000000100000000000002ef0000078afc0200000006fb00000014005200470042002000430061006d006500720061010000006e000003700000000000000000fb000000100044006900730070006c006100790073010000006e0000041a0000018200fffffffb0000000a0056006900650077007300000004d90000031f0000013200fffffffb0000001800460072006f006e0074002000430061006d0065007200610100000494000001190000002600fffffffb0000001800520069006700680074002000430061006d00650072006101000005b90000011a0000002600fffffffb00000016004c006500660074002000430061006d00650072006101000006df000001190000002600ffffff00000c050000078a00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Right Camera:
+    collapsed: false
+  Views:
+    collapsed: false
+  Width: 3840
+  X: 0
+  Y: 0

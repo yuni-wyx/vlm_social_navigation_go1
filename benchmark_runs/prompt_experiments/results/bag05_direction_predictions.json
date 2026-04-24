@@ -1,0 +1,906 @@
+{
+  "InternVL": [
+    {
+      "sample_id": "sequence_000080",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": false,
+        "motion": "none",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "```json\n{\n  \"person_detected\": false,\n  \"motion\": \"none\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}\n```",
+      "latency_sec": 3.48,
+      "frame_indices": [
+        80,
+        84,
+        88,
+        92,
+        96
+      ]
+    },
+    {
+      "sample_id": "sequence_000090",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": false,
+        "motion": "none",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "```json\n{\n  \"person_detected\": false,\n  \"motion\": \"none\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}\n```",
+      "latency_sec": 3.46,
+      "frame_indices": [
+        90,
+        94,
+        98,
+        102,
+        106
+      ]
+    },
+    {
+      "sample_id": "sequence_000100",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": false,
+        "motion": "none",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "```json\n{\n  \"person_detected\": false,\n  \"motion\": \"none\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}\n```",
+      "latency_sec": 3.66,
+      "frame_indices": [
+        100,
+        104,
+        108,
+        112,
+        116
+      ]
+    },
+    {
+      "sample_id": "sequence_000110",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": false,
+        "motion": "none",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "```json\n{\n  \"person_detected\": false,\n  \"motion\": \"none\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}\n```",
+      "latency_sec": 3.47,
+      "frame_indices": [
+        110,
+        114,
+        118,
+        122,
+        126
+      ]
+    },
+    {
+      "sample_id": "sequence_000120",
+      "success": true,
+      "predicted_action": "LEFT",
+      "response_json": {
+        "person_detected": true,
+        "motion": "crossing_rightward",
+        "crossing_direction": "rightward",
+        "path_blocked_latest_frame": true,
+        "safer_lateral_side": "left",
+        "recommended_avoidance_side": "left",
+        "risk_level": "medium",
+        "uncertainty_reason": "",
+        "recommended_action": "LEFT"
+      },
+      "raw_response": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"crossing_rightward\",\n  \"crossing_direction\": \"rightward\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"left\",\n  \"recommended_avoidance_side\": \"left\",\n  \"risk_level\": \"medium\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"LEFT\"\n}\n```",
+      "latency_sec": 2.82,
+      "frame_indices": [
+        120,
+        124,
+        128,
+        132,
+        136
+      ]
+    },
+    {
+      "sample_id": "sequence_000130",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": true,
+        "motion": "receding",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"receding\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}\n```",
+      "latency_sec": 3.52,
+      "frame_indices": [
+        130,
+        134,
+        138,
+        142,
+        146
+      ]
+    },
+    {
+      "sample_id": "sequence_000140",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": true,
+        "motion": "receding",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"receding\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}\n```",
+      "latency_sec": 3.53,
+      "frame_indices": [
+        140,
+        144,
+        148,
+        152,
+        156
+      ]
+    },
+    {
+      "sample_id": "sequence_000150",
+      "success": true,
+      "predicted_action": "REVIEW",
+      "response_json": {
+        "person_detected": true,
+        "motion": "crossing",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": true,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "medium",
+        "uncertainty_reason": "Crossing direction cannot be confidently determined.",
+        "recommended_action": "REVIEW"
+      },
+      "raw_response": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"crossing\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"medium\",\n  \"uncertainty_reason\": \"Crossing direction cannot be confidently determined.\",\n  \"recommended_action\": \"REVIEW\"\n}\n```",
+      "latency_sec": 3.71,
+      "frame_indices": [
+        150,
+        154,
+        158,
+        162,
+        166
+      ]
+    },
+    {
+      "sample_id": "sequence_000160",
+      "success": true,
+      "predicted_action": "REVIEW",
+      "response_json": {
+        "person_detected": true,
+        "motion": "crossing",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": true,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "medium",
+        "uncertainty_reason": "Crossing direction cannot be confidently determined.",
+        "recommended_action": "REVIEW"
+      },
+      "raw_response": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"crossing\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"medium\",\n  \"uncertainty_reason\": \"Crossing direction cannot be confidently determined.\",\n  \"recommended_action\": \"REVIEW\"\n}\n```",
+      "latency_sec": 3.76,
+      "frame_indices": [
+        160,
+        164,
+        168,
+        172,
+        176
+      ]
+    },
+    {
+      "sample_id": "sequence_000170",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": true,
+        "motion": "receding",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"receding\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}\n```",
+      "latency_sec": 3.56,
+      "frame_indices": [
+        170,
+        174,
+        178,
+        182,
+        186
+      ]
+    },
+    {
+      "sample_id": "sequence_000180",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": true,
+        "motion": "receding",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"receding\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}\n```",
+      "latency_sec": 3.57,
+      "frame_indices": [
+        180,
+        184,
+        188,
+        192,
+        196
+      ]
+    },
+    {
+      "sample_id": "sequence_000190",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": true,
+        "motion": "receding",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"receding\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}\n```",
+      "latency_sec": 3.56,
+      "frame_indices": [
+        190,
+        194,
+        198,
+        202,
+        206
+      ]
+    },
+    {
+      "sample_id": "sequence_000200",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": true,
+        "motion": "none",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"none\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}\n```",
+      "latency_sec": 3.53,
+      "frame_indices": [
+        200,
+        204,
+        208,
+        212,
+        216
+      ]
+    },
+    {
+      "sample_id": "sequence_000210",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": true,
+        "motion": "none",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "```json\n{\n  \"person_detected\": true,\n  \"motion\": \"none\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}\n```",
+      "latency_sec": 3.54,
+      "frame_indices": [
+        210,
+        214,
+        218,
+        222,
+        226
+      ]
+    },
+    {
+      "sample_id": "sequence_000220",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": false,
+        "motion": "none",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "```json\n{\n  \"person_detected\": false,\n  \"motion\": \"none\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}\n```",
+      "latency_sec": 3.55,
+      "frame_indices": [
+        220,
+        224,
+        228,
+        232,
+        236
+      ]
+    },
+    {
+      "sample_id": "sequence_000230",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": false,
+        "motion": "none",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "```json\n{\n  \"person_detected\": false,\n  \"motion\": \"none\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}\n```",
+      "latency_sec": 3.57,
+      "frame_indices": [
+        230,
+        234,
+        238,
+        242,
+        246
+      ]
+    },
+    {
+      "sample_id": "sequence_000240",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": false,
+        "motion": "none",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "```json\n{\n  \"person_detected\": false,\n  \"motion\": \"none\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}\n```",
+      "latency_sec": 3.56,
+      "frame_indices": [
+        240,
+        244,
+        248,
+        252,
+        256
+      ]
+    },
+    {
+      "sample_id": "sequence_000250",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": false,
+        "motion": "none",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "```json\n{\n  \"person_detected\": false,\n  \"motion\": \"none\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}\n```",
+      "latency_sec": 3.56,
+      "frame_indices": [
+        250,
+        254,
+        258,
+        262,
+        266
+      ]
+    }
+  ],
+  "Qwen": [
+    {
+      "sample_id": "sequence_000080",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": false,
+        "motion": "none",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "{\n  \"person_detected\": false,\n  \"motion\": \"none\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}",
+      "latency_sec": 10.05,
+      "frame_indices": [
+        80,
+        84,
+        88,
+        92,
+        96
+      ]
+    },
+    {
+      "sample_id": "sequence_000090",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": false,
+        "motion": "none",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "{\n  \"person_detected\": false,\n  \"motion\": \"none\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}",
+      "latency_sec": 10.01,
+      "frame_indices": [
+        90,
+        94,
+        98,
+        102,
+        106
+      ]
+    },
+    {
+      "sample_id": "sequence_000100",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": false,
+        "motion": "none",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "{\n  \"person_detected\": false,\n  \"motion\": \"none\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}",
+      "latency_sec": 10.08,
+      "frame_indices": [
+        100,
+        104,
+        108,
+        112,
+        116
+      ]
+    },
+    {
+      "sample_id": "sequence_000110",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": false,
+        "motion": "none",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "{\n  \"person_detected\": false,\n  \"motion\": \"none\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}",
+      "latency_sec": 10.08,
+      "frame_indices": [
+        110,
+        114,
+        118,
+        122,
+        126
+      ]
+    },
+    {
+      "sample_id": "sequence_000120",
+      "success": true,
+      "predicted_action": "LEFT",
+      "response_json": {
+        "person_detected": true,
+        "motion": "crossing_rightward",
+        "crossing_direction": "rightward",
+        "path_blocked_latest_frame": true,
+        "safer_lateral_side": "left",
+        "recommended_avoidance_side": "left",
+        "risk_level": "medium",
+        "uncertainty_reason": "",
+        "recommended_action": "LEFT"
+      },
+      "raw_response": "{\n  \"person_detected\": true,\n  \"motion\": \"crossing_rightward\",\n  \"crossing_direction\": \"rightward\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"left\",\n  \"recommended_avoidance_side\": \"left\",\n  \"risk_level\": \"medium\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"LEFT\"\n}",
+      "latency_sec": 8.05,
+      "frame_indices": [
+        120,
+        124,
+        128,
+        132,
+        136
+      ]
+    },
+    {
+      "sample_id": "sequence_000130",
+      "success": true,
+      "predicted_action": "STOP",
+      "response_json": {
+        "person_detected": true,
+        "motion": "stationary",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": true,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "high",
+        "uncertainty_reason": "",
+        "recommended_action": "STOP"
+      },
+      "raw_response": "{\n  \"person_detected\": true,\n  \"motion\": \"stationary\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}",
+      "latency_sec": 10.1,
+      "frame_indices": [
+        130,
+        134,
+        138,
+        142,
+        146
+      ]
+    },
+    {
+      "sample_id": "sequence_000140",
+      "success": true,
+      "predicted_action": "STOP",
+      "response_json": {
+        "person_detected": true,
+        "motion": "approaching",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": true,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "high",
+        "uncertainty_reason": "",
+        "recommended_action": "STOP"
+      },
+      "raw_response": "{\n  \"person_detected\": true,\n  \"motion\": \"approaching\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}",
+      "latency_sec": 10.09,
+      "frame_indices": [
+        140,
+        144,
+        148,
+        152,
+        156
+      ]
+    },
+    {
+      "sample_id": "sequence_000150",
+      "success": true,
+      "predicted_action": "STOP",
+      "response_json": {
+        "person_detected": true,
+        "motion": "stationary",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": true,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "high",
+        "uncertainty_reason": "",
+        "recommended_action": "STOP"
+      },
+      "raw_response": "{\n  \"person_detected\": true,\n  \"motion\": \"stationary\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}",
+      "latency_sec": 7.83,
+      "frame_indices": [
+        150,
+        154,
+        158,
+        162,
+        166
+      ]
+    },
+    {
+      "sample_id": "sequence_000160",
+      "success": true,
+      "predicted_action": "STOP",
+      "response_json": {
+        "person_detected": true,
+        "motion": "approaching",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": true,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "high",
+        "uncertainty_reason": "",
+        "recommended_action": "STOP"
+      },
+      "raw_response": "{\n  \"person_detected\": true,\n  \"motion\": \"approaching\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}",
+      "latency_sec": 10.05,
+      "frame_indices": [
+        160,
+        164,
+        168,
+        172,
+        176
+      ]
+    },
+    {
+      "sample_id": "sequence_000170",
+      "success": true,
+      "predicted_action": "STOP",
+      "response_json": {
+        "person_detected": true,
+        "motion": "approaching",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": true,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "high",
+        "uncertainty_reason": "",
+        "recommended_action": "STOP"
+      },
+      "raw_response": "{\n  \"person_detected\": true,\n  \"motion\": \"approaching\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}",
+      "latency_sec": 7.86,
+      "frame_indices": [
+        170,
+        174,
+        178,
+        182,
+        186
+      ]
+    },
+    {
+      "sample_id": "sequence_000180",
+      "success": true,
+      "predicted_action": "STOP",
+      "response_json": {
+        "person_detected": true,
+        "motion": "approaching",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": true,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "high",
+        "uncertainty_reason": "",
+        "recommended_action": "STOP"
+      },
+      "raw_response": "{\n  \"person_detected\": true,\n  \"motion\": \"approaching\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}",
+      "latency_sec": 10.11,
+      "frame_indices": [
+        180,
+        184,
+        188,
+        192,
+        196
+      ]
+    },
+    {
+      "sample_id": "sequence_000190",
+      "success": true,
+      "predicted_action": "STOP",
+      "response_json": {
+        "person_detected": true,
+        "motion": "approaching",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": true,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "high",
+        "uncertainty_reason": "",
+        "recommended_action": "STOP"
+      },
+      "raw_response": "{\n  \"person_detected\": true,\n  \"motion\": \"approaching\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}",
+      "latency_sec": 7.87,
+      "frame_indices": [
+        190,
+        194,
+        198,
+        202,
+        206
+      ]
+    },
+    {
+      "sample_id": "sequence_000200",
+      "success": true,
+      "predicted_action": "STOP",
+      "response_json": {
+        "person_detected": true,
+        "motion": "approaching",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": true,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "high",
+        "uncertainty_reason": "",
+        "recommended_action": "STOP"
+      },
+      "raw_response": "{\n  \"person_detected\": true,\n  \"motion\": \"approaching\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"high\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"STOP\"\n}",
+      "latency_sec": 10.12,
+      "frame_indices": [
+        200,
+        204,
+        208,
+        212,
+        216
+      ]
+    },
+    {
+      "sample_id": "sequence_000210",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": true,
+        "motion": "receding",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "{\n  \"person_detected\": true,\n  \"motion\": \"receding\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}",
+      "latency_sec": 8.07,
+      "frame_indices": [
+        210,
+        214,
+        218,
+        222,
+        226
+      ]
+    },
+    {
+      "sample_id": "sequence_000220",
+      "success": true,
+      "predicted_action": "RIGHT",
+      "response_json": {
+        "person_detected": true,
+        "motion": "crossing_leftward",
+        "crossing_direction": "leftward",
+        "path_blocked_latest_frame": true,
+        "safer_lateral_side": "right",
+        "recommended_avoidance_side": "right",
+        "risk_level": "medium",
+        "uncertainty_reason": "",
+        "recommended_action": "RIGHT"
+      },
+      "raw_response": "{\n  \"person_detected\": true,\n  \"motion\": \"crossing_leftward\",\n  \"crossing_direction\": \"leftward\",\n  \"path_blocked_latest_frame\": true,\n  \"safer_lateral_side\": \"right\",\n  \"recommended_avoidance_side\": \"right\",\n  \"risk_level\": \"medium\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"RIGHT\"\n}",
+      "latency_sec": 10.39,
+      "frame_indices": [
+        220,
+        224,
+        228,
+        232,
+        236
+      ]
+    },
+    {
+      "sample_id": "sequence_000230",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": false,
+        "motion": "none",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "{\n  \"person_detected\": false,\n  \"motion\": \"none\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}",
+      "latency_sec": 10.2,
+      "frame_indices": [
+        230,
+        234,
+        238,
+        242,
+        246
+      ]
+    },
+    {
+      "sample_id": "sequence_000240",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": false,
+        "motion": "none",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "{\n  \"person_detected\": false,\n  \"motion\": \"none\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}",
+      "latency_sec": 9.8,
+      "frame_indices": [
+        240,
+        244,
+        248,
+        252,
+        256
+      ]
+    },
+    {
+      "sample_id": "sequence_000250",
+      "success": true,
+      "predicted_action": "FORWARD",
+      "response_json": {
+        "person_detected": false,
+        "motion": "none",
+        "crossing_direction": "none",
+        "path_blocked_latest_frame": false,
+        "safer_lateral_side": "none",
+        "recommended_avoidance_side": "none",
+        "risk_level": "low",
+        "uncertainty_reason": "",
+        "recommended_action": "FORWARD"
+      },
+      "raw_response": "{\n  \"person_detected\": false,\n  \"motion\": \"none\",\n  \"crossing_direction\": \"none\",\n  \"path_blocked_latest_frame\": false,\n  \"safer_lateral_side\": \"none\",\n  \"recommended_avoidance_side\": \"none\",\n  \"risk_level\": \"low\",\n  \"uncertainty_reason\": \"\",\n  \"recommended_action\": \"FORWARD\"\n}",
+      "latency_sec": 10.18,
+      "frame_indices": [
+        250,
+        254,
+        258,
+        262,
+        266
+      ]
+    }
+  ]
+}

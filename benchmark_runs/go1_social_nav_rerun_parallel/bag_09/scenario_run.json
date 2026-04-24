@@ -1,0 +1,10 @@
+{
+  "bag_id": "bag_09",
+  "bag_path": "rosbag/9.bag",
+  "extracted_dir": "/home/aaquib/where-am-I/extracted_social_nav/bag_09",
+  "input_mode": "extracted",
+  "labels_path": "/home/aaquib/where-am-I/benchmark_runs/go1_social_nav_rerun_parallel/bag_09/labels.csv",
+  "scenario_name": "approaching_person",
+  "sequence_samples_path": "/home/aaquib/where-am-I/benchmark_runs/go1_social_nav_rerun_parallel/bag_09/sequence_samples.jsonl",
+  "single_samples_path": "/home/aaquib/where-am-I/benchmark_runs/go1_social_nav_rerun_parallel/bag_09/single_samples.jsonl"
+}

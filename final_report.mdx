@@ -1,0 +1,404 @@
+# Converting Offline VLM Perception into a Structured Social Navigation Policy for Unitree Go1
+
+## Abstract
+
+I study whether a pretrained vision-language model can be turned, at the prompt level, from a passive scene describer into a structured social-navigation decision policy for a Unitree Go1.
+The implemented system is an offline benchmark pipeline that extracts front-camera image sequences from 13 recorded rosbags, sends them to hosted InternVL-3.5-14B and Qwen3-VL-30B backends, and evaluates per-sample action predictions against scenario labels.
+The key architectural intervention is not model training.
+The intervention is a prompt-policy redesign that expands the action space from a STOP/FORWARD collapse into \(\{\mathrm{STOP}, \mathrm{FORWARD}, \mathrm{LEFT}, \mathrm{RIGHT}, \mathrm{REVIEW}\}\).
+The final sequence prompt adds an explicit motion taxonomy, a crossing-direction rule, a receding-person override, and an uncertainty fallback that routes genuinely ambiguous scenes to `REVIEW` instead of forcing `STOP` or `FORWARD`.
+In the primary saved benchmark `final_policy_v2_crossing`, both sequence methods emit non-zero `LEFT`, `RIGHT`, and `REVIEW` rates, and the targeted probe on `bag_05` reaches `direction_rule_consistency = 1.000` on the crossing frames that each model does detect.
+The receding fix is independently validated by a four-configuration bag_10 probe in which both models flip from `STOP` back to `FORWARD` only after the receding rule is added.
+I did not fine-tune any model.
+I did not deploy the policy on the robot.
+The system is therefore a low-frequency offline decision layer, and my strongest defensible claim is that prompt-level architectural design can induce structured directional and uncertainty behaviour from pretrained VLMs in an offline benchmark, while perception-driven activation remains the main open problem under the current sampling regime.
+
+## Problem Setting
+
+The problem is social navigation from Go1 front-camera footage.
+At each decision point, the robot must decide whether the forward corridor is traversable, whether a lateral bypass is safer, or whether the scene is too ambiguous to commit.
+Pure geometric collision avoidance is insufficient because many cases depend on human intent and temporal motion rather than instantaneous occupancy alone.
+A receding person should not trigger the same response as an approaching person.
+A person crossing leftward should not trigger the same lateral command as a person crossing rightward.
+A person who appears only in the latest frame should not be washed out by earlier empty frames.
+I therefore treat social navigation as a semantic decision problem over short image sequences rather than a pure obstacle-threshold problem.
+
+## Baseline Bottleneck and Architectural Delta
+
+The repository does not reproduce one single canonical VLA paper.
+I therefore frame the baseline as the broader VLM-navigation family represented by the earlier prompt schemas and by the default single-image and sequence benchmark methods that preceded the crossing-aware edits.
+
+### Failure lineage
+
+The saved prompt experiments show a recurring binary collapse where the old prompt pushes the model toward `STOP` or `FORWARD` even when the scene demands directional avoidance or explicit uncertainty.
+Approaching cases get compressed into generic blockage without asking whether a lateral bypass is plausible.
+Receding cases stay over-conservative because the person is still visible even when the forward corridor has reopened.
+Crossing cases are misread as stationary or generic approach unless temporal displacement is strong enough to expose direction.
+Ambiguous lateral or late-entry cases are forced into overconfident `STOP` or `FORWARD` when the policy has no explicit uncertainty channel.
+
+### Bottleneck
+
+The core bottleneck is action-space collapse.
+If the policy cannot represent lateral avoidance or deferral, then all social ambiguity is forced into the wrong representation.
+This causes three coupled failures.
+The system cannot encode directional social reasoning.
+The system cannot defer safely when motion intent is unclear.
+The system cannot use temporal evidence to recover `FORWARD` in receding cases without appearing inconsistent.
+
+### Interface-specification argument
+
+If a downstream user of the navigation policy asks what the interface must expose so that social scenes are not silently misrepresented, the answer is that the interface must expose the distinctions the robot actually needs to act on.
+A policy that only exposes halt-or-go cannot express "move left because the person is crossing rightward", and it cannot express "review because the person entered too late to infer intent".
+The interface must therefore provide first-class outputs for lateral bypass and for uncertainty.
+It must also require temporal reasoning over short sequences, because crossing, receding, and entering-late cannot be inferred reliably from one still frame.
+The final prompt implements exactly this requirement.
+
+### Architectural delta
+
+The delta has four parts.
+First, the sequence prompt turns passive description into a structured semantic state with fields `motion`, `crossing_direction`, `path_blocked_latest_frame`, `safer_lateral_side`, `recommended_avoidance_side`, `risk_level`, `uncertainty_reason`, and `recommended_action`.
+Second, the action space is expanded to `{STOP, FORWARD, LEFT, RIGHT, REVIEW}`.
+Third, explicit rules are injected for receding and crossing cases, including the rule that a crossing person moving rightward should induce a `LEFT` preference when the left side is safe.
+Fourth, ambiguous cases are routed to `REVIEW` instead of forcing false confidence.
+
+## System Overview
+
+The implemented pipeline begins with recorded Go1 rosbags.
+I convert each bag into a standard per-bag extracted directory using `streaming/scripts/extract_social_nav_data.py`, which writes PPM frames under `images/`, a `frames.jsonl` row per frame, and an `extraction_summary.json`.
+`motion_control/scripts/prepare_social_nav_extracted.py` drives that extractor over the full 13-bag manifest at `motion_control/eval/scenario_manifest.json`.
+The benchmark runner is `motion_control/scripts/social_nav_eval.py`.
+Its `run-manifest` subcommand is the main entry point I used for the final runs; `motion_control/scripts/run_social_nav_benchmark.py` is a thin batch wrapper that was used in some earlier runs but not in the final one.
+The runner groups methods by wrapper backend (`geometry`, `internvl`, `qwen`) and dispatches groups concurrently via `ThreadPoolExecutor`, with per-sample streaming checkpoints that make every run resumable after a wrapper or backend outage.
+The VLM backends are called through a FastAPI layer in `vlm_wrapper.py`, which fronts two hosted vLLM instances: InternVL-3.5-14B at `10.157.141.10:8100` (backend `10.157.141.181:8000`) and Qwen3-VL-30B at `10.157.141.10:8101` (backend `10.157.141.181:8001`).
+The primary methods are `internvl_single_image_navigation`, `internvl_sequence_image_navigation`, `qwen_single_image_navigation`, and `qwen_sequence_image_navigation`.
+`geometry` remains registered for compatibility; it needs a `/scan_odom` topic that is absent from the current bag set, so it records `missing_front_dist` on every frame.
+`LEFT` and `RIGHT` are schema-level outputs of the offline benchmark.
+They are not mapped to online Go1 control primitives.
+
+## Data Mix
+
+### Foundational priors
+
+I use pretrained VLMs rather than training a new foundation model.
+The final saved runs use `OpenGVLab/InternVL3_5-14B-HF` and `Qwen3-VL-30B`.
+I did not pretrain or fine-tune SigLIP, DINOv2, or any other backbone in this project.
+
+### Embodied data
+
+The embodied dataset is the Go1 rosbag collection and its extracted front-camera sequences.
+The 13 manifest bags cover empty paths, frontal blocking, crossing, approaching, receding, entering-frame, multi-person, and review-oriented side-position scenarios.
+The extractor produces 6,423 frames in total before any subsampling, split across bags as documented in `report_eval.md`.
+I reduce that to 1,290 frames by keeping every fifth row of each `frames.jsonl` so that per-run wall time stays tractable.
+Sample counts then depend on the sequence-length and sampling mode in use.
+For `--sequence-length 5 --sequence-sampling-mode none`, I observe 1,290 single samples and 1,238 sequence samples (intermediate runs such as `go1_social_nav_apr18_extracted_scores`).
+For the final `final_policy_v2_crossing` run with `--sequence-length 10 --sequence-sampling-mode capped --max-frames-per-sequence 5`, the sequence sample count per bag is (n_frames − 9) per bag and the sample cardinality is different; the exact per-bag counts are recorded in `final_policy_v2_crossing/bag_*/sequence_samples.jsonl`.
+
+### Synthetic multiplication
+
+I do not use Open X-Embodiment, DROID, MimicGen, or RoboGen.
+I do not synthesise new scenes, new trajectories, or new human-motion clips.
+The only multiplication that occurs is offline recombination of already-recorded frames into different sequence windows, plus prompt A/B runs and targeted probes that reuse the same bags.
+A future scaled version would need either broader embodied coverage or synthetic augmentation; both are explicitly out of scope for this capstone.
+
+## Formalized state, action, and policy logic
+
+Let \(I_{t-k+1:t} = (i_{t-k+1}, \ldots, i_t)\) denote a time-ordered image sequence from the front camera, newest frame at index \(t\).
+Let \(g_t\) denote an optional task instruction or navigation context.
+
+I define the operational state as
+
+$$
+s_t = \left(I_{t-k+1:t}, z_t, g_t\right) \in \mathcal{S}.
+$$
+
+The latent semantic state extracted by the prompt-policy is
+
+$$
+z_t = \left(p_t, m_t, c_t, b_t, \ell_t, a_t, r_t, u_t\right),
+$$
+
+where \(p_t\) is person presence, \(m_t\) is motion class, \(c_t\) is crossing direction, \(b_t \in \{0,1\}\) is whether the latest frame blocks the forward corridor, \(\ell_t\) is the safer lateral side, \(a_t\) is the recommended avoidance side, \(r_t\) is risk level, and \(u_t\) is an uncertainty explanation.
+
+The implemented action space is
+
+$$
+\mathcal{A} = \{\mathrm{STOP}, \mathrm{FORWARD}, \mathrm{LEFT}, \mathrm{RIGHT}, \mathrm{REVIEW}\}.
+$$
+
+The policy is a prompt-induced mapping
+
+$$
+\pi : \mathcal{S} \rightarrow \mathcal{A},
+\qquad
+\pi(s_t) = \pi\!\left(I_{t-k+1:t}, z_t, g_t\right).
+$$
+
+The crossing rule in the final prompt can be written as
+
+$$
+\pi(s_t) =
+\begin{cases}
+\mathrm{RIGHT}, & m_t = \mathrm{crossing\_leftward} \land \text{right side is safe}, \\
+\mathrm{LEFT}, & m_t = \mathrm{crossing\_rightward} \land \text{left side is safe}, \\
+\mathrm{REVIEW}, & m_t = \mathrm{crossing} \land c_t = \mathrm{none}, \\
+\mathrm{STOP}, & \text{crossing is present but both lateral sides remain unsafe}.
+\end{cases}
+$$
+
+The receding rule is
+
+$$
+m_t = \mathrm{receding} \land b_t = 0 \;\Longrightarrow\; \pi(s_t) = \mathrm{FORWARD}.
+$$
+
+The uncertainty fallback is
+
+$$
+u_t \neq \emptyset \;\lor\; \text{intent/blockage/direction ambiguous} \;\Longrightarrow\; \pi(s_t) = \mathrm{REVIEW}.
+$$
+
+I did not optimize a learned loss in this project.
+The following loss decomposition is therefore a conceptual future fine-tuning objective, not an actually optimised training loss.
+
+$$
+\mathcal{L}_{\mathrm{total}}
+=
+\lambda_{\mathrm{act}} \mathcal{L}_{\mathrm{act}}
+\;+\;
+\lambda_{\mathrm{dir}} \mathcal{L}_{\mathrm{dir}}
+\;+\;
+\lambda_{\mathrm{unc}} \mathcal{L}_{\mathrm{unc}}
+\;+\;
+\lambda_{\mathrm{block}} \mathcal{L}_{\mathrm{block}}.
+$$
+
+One reasonable decomposition would be
+
+$$
+\mathcal{L}_{\mathrm{act}}
+=
+- \sum_{t} \log p_\theta(a_t^{\star} \mid I_{t-k+1:t}, g_t),
+$$
+
+$$
+\mathcal{L}_{\mathrm{dir}}
+=
+- \sum_{t \in \mathcal{C}} \log p_\theta(c_t^{\star} \mid I_{t-k+1:t}),
+$$
+
+$$
+\mathcal{L}_{\mathrm{unc}}
+=
+- \sum_{t \in \mathcal{U}} \log p_\theta(\mathrm{REVIEW} \mid I_{t-k+1:t}, g_t),
+$$
+
+and
+
+$$
+\mathcal{L}_{\mathrm{block}}
+=
+- \sum_{t} \log p_\theta(b_t^{\star} \mid I_{t-k+1:t}).
+$$
+
+This formalisation matches the current policy logic.
+It should not be misread as evidence that end-to-end training was performed.
+
+## Experimental Setup
+
+The benchmark uses the 13-bag manifest at `motion_control/eval/scenario_manifest.json`.
+Ten bags are primary cases with expected `FORWARD` or `STOP`.
+Three bags are review cases with expected `REVIEW`.
+I subsample the extracted frame stream by keeping every fifth row and preserve the full stream at `frames.jsonl.full` per bag.
+Different saved runs use different sequence configurations; the three I cite most are:
+(a) `go1_social_nav_apr18_extracted_scores` with `--sequence-length 5` and no subsampling, the reference point for the action-space expansion;
+(b) `final_policy_v2_crossing` with `--sequence-length 10 --sequence-sampling-mode capped --max-frames-per-sequence 5`, the main headline run for the new five-action policy;
+(c) `targeted_directional_activation_test` with the same configuration as (b) but only four bags (03, 04, 05, 07) and fresh inference, used to diagnose capability versus activation.
+For every run I evaluate the same five methods (`geometry` plus four VLM methods) and apply the same custom direction metrics.
+The geometry baseline is unavailable on this bag set because `/scan_odom` is absent from the rosbags; it remains in the evaluator for structural compatibility but produces `missing_front_dist` on every frame.
+
+## Results
+
+### Full benchmark — final_policy_v2_crossing
+
+All figures below are re-computed from `benchmark_runs/final_policy_v2_crossing/primary_cases_summary.csv` and `review_cases_summary.csv`.
+
+Bag-level primary accuracy (10 bags):
+
+- `internvl_sequence_image_navigation` — 6/10, mean latency 3.7540 s.
+- `qwen_sequence_image_navigation` — 6/10, mean latency 10.7941 s.
+- `internvl_single_image_navigation` — 5/10, mean latency 2.0740 s.
+- `qwen_single_image_navigation` — 3/10, mean latency 8.0173 s.
+- `geometry` — unavailable (0/10).
+
+Mean action rates on the primary bags:
+
+- `internvl_sequence`: stop 0.1454, forward 0.7051, left 0.0887, right 0.0457, review 0.0150.
+- `qwen_sequence`: stop 0.3690, forward 0.5582, left 0.0353, right 0.0147, review 0.0229.
+- `internvl_single`: stop 0.3859, forward 0.5573, left 0.0087, right 0.0000, review 0.0481.
+- `qwen_single`: stop 0.0343, forward 0.4419, left 0.0371, right 0.0835, review 0.4033.
+
+These numbers confirm that the final policy is no longer binary.
+Both sequence methods and both single methods produce non-zero lateral actions and non-zero REVIEW at the bag-level means.
+`internvl_sequence` carries the strongest LEFT/RIGHT signal (combined 13.4 %).
+`qwen_single` is dominated by REVIEW (40.3 %), which at first looks like overuse but on review cases it is the only method that predicts REVIEW at the bag level (2/3 review bags).
+
+Unsafe-forward behaviour on the six STOP-labelled primary bags, computed as the mean `forward_rate` on those bags:
+
+- `qwen_sequence` 0.4323.
+- `internvl_sequence` 0.6100.
+
+Both values are too high for deployment as-is.
+`qwen_sequence` is clearly safer than `internvl_sequence` on the same scenarios.
+
+### Review-case behaviour
+
+From `review_cases_summary.csv`:
+
+- `qwen_single` predicts `REVIEW` on 2/3 review bags and has a mean `review_rate` of 0.4490 across review bags.
+- `qwen_sequence` predicts `REVIEW` on 0/3 review bags and has a mean `review_rate` of 0.0036 across review bags.
+
+The architecture supports explicit uncertainty but the final sequence prompt does not yet use it reliably.
+Single-image inputs have less temporal context, which plausibly explains why the single method commits to REVIEW more readily.
+
+### Targeted probes
+
+The directional crossing rule is most cleanly verified by the 18-window bag_05 probe saved as `benchmark_runs/prompt_experiments/results/bag05_direction_predictions.json`.
+For Qwen, the saved probe yields `direction_rule_consistency = 1.000`, `direction_activation_rate = 1.000`, and `crossing_detection_rate = 0.1111`, with `n_crossing = 2` and `n_direction_valid = 2`.
+For InternVL, the same probe yields `direction_rule_consistency = 1.000`, `direction_activation_rate = 0.3333`, and `crossing_detection_rate = 0.1667`, with `n_crossing = 3` and `n_direction_valid = 1`.
+The 1.000 values measure decision-rule correctness — given that the model commits both a direction label and a lateral action, does the action match the opposite-side mapping — not perception correctness.
+Perception correctness is represented by `crossing_detection_rate`, which sits near 10–20 %.
+
+The receding fix is validated by `benchmark_runs/prompt_experiments/results/bag10_receding_fix_results.json`.
+Under the intermediate `AFTER_current_prompt` (receding rule absent), both InternVL and Qwen predict `STOP` on the selected bag_10 window even though the bag is labelled `FORWARD`.
+Under `AFTER_receding_fix`, both models return `FORWARD`.
+Under `AFTER_receding_fix_tail` both also remain at `FORWARD`.
+This is direct evidence that the explicit receding rule — not generic safety language — restored the correct action.
+
+The prompt A/B artefact `prompt_ab_results.json` also shows that uncertainty must be induced rather than assumed.
+On bag_08 InternVL moves from `FORWARD` under the older prompt to `REVIEW` under `AFTER_prompt`, then back to `FORWARD` under `AFTER_tail`.
+This pattern simultaneously shows that REVIEW is reachable and that overly aggressive temporal subsampling (tail only) can erase the very evidence that makes uncertainty appropriate.
+
+### Directional-avoidance variant
+
+To separate "does the model produce directional action" from "is directional action the safety-correct answer", I introduced a second benchmark task with relabelled manifest `scenario_manifest_directional_avoidance.json`.
+Four bags are relabelled: bag_03 becomes RIGHT (person on left), bag_04 becomes LEFT (person on right), bag_05 becomes RIGHT (right-to-left crossing), bag_07 becomes LEFT (left-to-right crossing).
+The original manifest is preserved unchanged and the new one records both the new and original labels.
+I reuse `final_policy_v2_crossing` predictions via sample-id-keyed checkpoint resume and only recompute the aggregation pass under the new labels into `benchmark_runs/final_policy_directional_labels_v1/`.
+Bag-level primary accuracy under the directional rubric is `internvl_sequence` 6/10, `qwen_sequence` 5/10, `internvl_single` 5/10, `qwen_single` 3/10.
+Direction metrics are unchanged from the source run because they depend only on model outputs.
+`unsafe_forward_gt_rate` decreases on `internvl_sequence` (0.545 → 0.467) and `internvl_single` (0.437 → 0.361) under the new labels, not because behaviour changed, but because two previously-STOP bags are no longer STOP-labelled.
+I stress that the two labelings define different benchmark tasks; direct numeric comparison across them is not informative.
+
+### Capability-versus-activation diagnosis
+
+I reran the four directionally-labelled bags from scratch into `benchmark_runs/targeted_directional_activation_test/`, with no reuse of prior predictions.
+The goal was to test whether the absence of bag-level LEFT/RIGHT under `final_policy_v2_crossing` was caused by capability failure or activation failure.
+Across the four target bags and the four VLM methods, I observed 116 frames with a committed lateral action, combined InternVL direction-valid count of 34 against 44 detected crossing frames (activation 0.773), and combined Qwen direction-valid count of 11 against 11 detected crossing frames (activation 1.000).
+`direction_rule_consistency` is 1.000 for both models on these fresh predictions.
+`crossing_detection_rate` is 0.079 for InternVL and 0.020 for Qwen across the four bags.
+This is the central diagnostic finding: LEFT and RIGHT are not missing capabilities.
+When the models detect crossing motion, they apply the opposite-side mapping correctly on every committed case.
+The limiter is perception — specifically `crossing_detection_rate` — which stays low even under the improved sequence configuration.
+
+## Failure Analysis
+
+### Temporal collapse under aggressive subsampling
+
+Keeping every fifth extracted frame was necessary for tractable runtime but it reduced temporal density.
+The bag_05 probe had to space five sample frames stride-4 apart over the full-resolution stream in order to expose enough lateral displacement for the crossing classifier to fire.
+Motion-policy quality therefore depends on temporal visibility, not only on prompt wording.
+
+### Prompt-induced over-conservatism
+
+The bag_10 receding artefact is a concrete example of prompt-induced over-conservatism.
+Both models predicted `STOP` under `AFTER_current_prompt` even though bag_10 is labelled `FORWARD`.
+Only the explicit receding rule restored `FORWARD`.
+Generic "prioritise safety" language was insufficient; the policy needed to say that a visibly receding person should not automatically imply blockage when the latest frame is clear.
+
+### Directional activation is perception-bound
+
+The final benchmark produces non-zero LEFT and RIGHT, but bag-level crossing cases still fail frequently at the majority-vote level.
+The targeted rerun confirms that when crossing is detected the direction rule is applied correctly every time.
+The honest interpretation is that the rule works conditionally; the motion detector that feeds the rule is brittle under the current sampling regime.
+Raising `crossing_detection_rate` is therefore the bottleneck, not changing the rule.
+
+### Offline success does not imply online readiness
+
+The current system issues one discrete action per offline sample window.
+Mean sequence latency in the final run is 3.7540 s for InternVL and 10.7941 s for Qwen.
+That supports offline policy auditing and prompt design.
+It does not support closed-loop human avoidance at robot control rate.
+
+## Implementation Gotchas
+
+Sampling choices can dominate policy expression — keeping every fifth extracted frame improved runtime but weakened the temporal cues needed for crossing and entering-late recognition.
+Tail truncation can destroy the evidence a social policy needs — the bag_08 A/B shows InternVL switching from REVIEW back to FORWARD when only the tail window is kept.
+REVIEW must be explicitly induced by prompt and schema — it did not appear reliably until the ambiguity rules and the `uncertainty_reason` field were added.
+LEFT and RIGHT are benchmark actions, not controller actions — an online controller still needs to map them to safe lateral motion primitives with collision checking and stabilisation.
+Wrapper prompt deployment is a silent failure mode — every time `social_nav_eval_prompts.py` changes locally, the wrapper host's copy must be synced and the wrapper restarted, or the backend will keep serving the old prompt.
+
+## Limitations
+
+The current project is offline or low-frequency VLM evaluation, not a real-time controller.
+I did not complete a full online closed-loop Go1 social-navigation deployment.
+I did not perform fine-tuning or end-to-end training.
+I did not use a large embodied data mix such as Open X-Embodiment, DROID, MimicGen, or RoboGen.
+The results do not prove robust human avoidance under controller latency, actuator dynamics, or online sensor noise.
+Policy quality still depends heavily on perception quality and temporal motion exposure.
+Any rubric item that expects large-scale training data, synthetic scaling, or online deployment is therefore only partially satisfied in this project.
+
+## Future Work
+
+The targeted-rerun diagnosis makes the direction of future work concrete.
+The decision rules are internally consistent (`direction_rule_consistency = 1.000` on the frames models detect).
+The limiter is perception — specifically `crossing_detection_rate` at 0.02–0.08 under the current sampling regime.
+Future work therefore should not replace or relax the policy rules.
+It should improve the inputs to those rules and the model's perception of temporal motion.
+
+Parameter-efficient fine-tuning (LoRA) on the vision–language adapters of InternVL and Qwen, targeted at the structured fields `motion`, `crossing_direction`, and `safer_lateral_side`, is the most direct next step.
+The training targets would be supervised labels derived by auditing and correcting the `raw_response` fields already stored in the 65 per-scenario JSONL files, so no new human annotation effort is required beyond reviewing existing responses.
+The decision-action head (`recommended_action`) should be supervised jointly but with a smaller weight because the rule engine in the prompt already produces the correct action when the perception fields are correct.
+LoRA is chosen over full fine-tuning because the models are 14 B and 30 B parameters, and because single-node compute is the binding constraint for an individual capstone.
+The fine-tuning goal is explicitly to raise `crossing_detection_rate` and the activation rate, not to replace the crossing-direction rule itself; the rule stays.
+
+A smaller complementary piece of future work is a perception diagnostic probe.
+I would force the model to emit `motion` alone (independent of `recommended_action`), compare against human-labelled motion on the 13 bags, and split the full-benchmark error budget into "perception errors" and "rule-application errors".
+That would quantify whether perception or activation is the larger remaining gap.
+
+Controller-side future work — already flagged — remains out of scope for this capstone but is the right long-term direction.
+LEFT and RIGHT need to be mapped to Go1 control primitives with local safety checks, smoothing, and a high-frequency safety layer that can override the low-frequency VLM decision.
+Latency must drop substantially.
+The semantic policy should fuse with geometry-aware local collision checking when a LiDAR-carrying bag set is available.
+
+What the Future Work section does NOT claim:
+
+- I did not fine-tune any model in this project.
+- I do not claim a new dataset beyond the existing 13 rosbags.
+- I do not claim synthetic augmentation of any kind.
+- I do not claim online deployment; the controller-mapping work is labelled as future.
+
+## Conclusion
+
+My strongest defensible conclusion is that pretrained VLMs can be converted into a structured social decision policy through prompt-level architectural design.
+The repository now demonstrates a five-action policy with explicit temporal motion reasoning, directional crossing avoidance, and uncertainty handling.
+The final benchmark confirms non-zero `LEFT`, non-zero `RIGHT`, and non-zero `REVIEW` across the four VLM methods, with `direction_rule_consistency = 1.000` on every saved probe where the model committed a direction.
+The full benchmark still contains crossing and entering-person failures, unsafe-forward mass remains too high on STOP scenarios, and the system operates at offline or low-frequency timescales.
+The project succeeds as an architectural audit and intervention on VLM social-navigation behaviour.
+Real Go1 online deployment still requires fine-tuning to raise perception activation, controller integration to map lateral actions to robot primitives, lower latency, and a stronger perception-to-control bridge.
+
+## References / Notes
+
+- `social_nav_eval_prompts.py` — final prompt schemas including the crossing-direction and receding rules.
+- `motion_control/scripts/social_nav_eval.py` — benchmark runner, action normalisation, metric computation including `compute_direction_metrics`.
+- `motion_control/scripts/run_social_nav_benchmark.py` — batch-convenience wrapper (used for some earlier runs).
+- `motion_control/eval/scenario_manifest.json` — conservative-safety 13-bag manifest.
+- `motion_control/eval/scenario_manifest_directional_avoidance.json` — directional-avoidance variant, four bags relabelled, original labels preserved per-scenario.
+- `motion_control/eval/scenario_manifest_targeted_4bags.json` — four-bag subset used by the targeted activation probe.
+- `benchmark_runs/final_policy_v2_crossing/` — primary saved run with the five-action crossing-aware policy.
+- `benchmark_runs/final_policy_directional_labels_v1/` — label-only reevaluation under directional rubric.
+- `benchmark_runs/targeted_directional_activation_test/` — fresh four-bag rerun used for the capability-vs-activation diagnosis.
+- `benchmark_runs/prompt_experiments/results/bag05_direction_predictions.json` — targeted bag_05 crossing probe.
+- `benchmark_runs/prompt_experiments/results/bag10_receding_fix_results.json` — four-config receding-rule validation on bag_10.
+- `benchmark_runs/prompt_experiments/results/prompt_ab_results.json` — intermediate prompt A/B behaviour on bags 05, 08, 09, 10.
+- `report_eval.md` — extracted-data benchmark workflow details: frame counts, subsample step, sample counts.
+- `REPO_OVERVIEW.md` — repository-wide guided tour: directory layout, pipeline, run inventory, operational gotchas, reproduction commands.

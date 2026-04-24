@@ -1,0 +1,10 @@
+{
+  "bag_id": "bag_05",
+  "bag_path": "rosbag/5.bag",
+  "extracted_dir": "/home/aaquib/where-am-I/extracted_social_nav/bag_05",
+  "input_mode": "extracted",
+  "labels_path": "/home/aaquib/where-am-I/benchmark_runs/go1_social_nav_apr18_extracted_scores/bag_05/labels.csv",
+  "scenario_name": "right_to_left_crossing",
+  "sequence_samples_path": "/home/aaquib/where-am-I/benchmark_runs/go1_social_nav_apr18_extracted_scores/bag_05/sequence_samples.jsonl",
+  "single_samples_path": "/home/aaquib/where-am-I/benchmark_runs/go1_social_nav_apr18_extracted_scores/bag_05/single_samples.jsonl"
+}

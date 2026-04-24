@@ -1,0 +1,38 @@
+# Estimated Unitree Go1 Fisheye Camera Calibration
+# ================================================
+# Sensor: OmniVision OV9281, 1/4-inch global shutter
+# Lens: 222° FOV fisheye
+# Resolution: 928 x 800 (left half of 1856x800 stereo pair)
+# Baseline: 25mm stereo separation
+# Model: Kannala-Brandt fisheye (cv2.fisheye)
+#
+# IMPORTANT: These are ESTIMATED values from known Go1 specs.
+# For precision work, extract unit-specific calibration from
+# the robot using: ./bin/example_getCalibParamsFile
+
+image_width: 928
+image_height: 800
+
+# Intrinsic matrix K
+# For 222° FOV equidistant fisheye at 928x800:
+#   f = r_max / θ_max = 612px / 1.937rad ≈ 316px
+camera_matrix:
+  rows: 3
+  cols: 3
+  data: [316.0, 0.0, 464.0,
+         0.0, 316.0, 400.0,
+         0.0, 0.0, 1.0]
+
+# Kannala-Brandt fisheye distortion coefficients (k1, k2, k3, k4)
+# For a 222° ultra-wide fisheye, these model deviation from
+# pure equidistant projection. Estimated conservatively.
+distortion_model: fisheye
+distortion_coefficients:
+  rows: 1
+  cols: 4
+  data: [0.05, -0.01, 0.005, -0.001]
+
+# Rectified output parameters
+output_fov_degrees: 120
+output_width: 640
+output_height: 480

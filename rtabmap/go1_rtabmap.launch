@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!-- RTAB-Map 3D mapping for Unitree Go1 using LiDAR + leg odometry -->
+<!-- Usage: roslaunch rtabmap/go1_rtabmap.launch [bag:=path/to/fixed.bag] -->
+<launch>
+  <arg name="use_sim_time" default="true"/>
+  <param if="$(arg use_sim_time)" name="use_sim_time" value="true"/>
+
+  <arg name="database_path" default="$(find rtabmap_ros)/../../../rtabmap/output/rtabmap.db"/>
+  <arg name="db_path" default="$(env HOME)/dog_ws/rtabmap/output/rtabmap.db"/>
+
+  <!-- Use the stock rtabmap.launch in scan-cloud-only mode -->
+  <include file="$(find rtabmap_launch)/launch/rtabmap.launch">
+    <!-- No depth camera, but use RGB for visual loop closure -->
+    <arg name="depth" value="false"/>
+    <arg name="stereo" value="false"/>
+    <arg name="subscribe_rgb" value="true"/>
+    <arg name="visual_odometry" value="false"/>
+    <arg name="icp_odometry" value="false"/>
+
+    <!-- Front camera (camera_info published by camera_info_publisher.py) -->
+    <arg name="rgb_topic" value="/camera_face/left/image_raw"/>
+    <arg name="camera_info_topic" value="/camera_face/left/camera_info"/>
+
+    <!-- Generate depth from LiDAR projected onto camera -->
+    <arg name="gen_depth" value="true"/>
+    <arg name="gen_depth_decimation" value="2"/>
+    <arg name="gen_depth_fill_holes_size" value="5"/>
+
+    <!-- 3D LiDAR cloud -->
+    <arg name="subscribe_scan_cloud" value="true"/>
+    <arg name="scan_cloud_topic" value="/velodyne_points_odom"/>
+
+    <!-- External odometry from Go1 leg odom -->
+    <arg name="odom_topic" value="/odom_fixed"/>
+
+    <!-- Frame setup: trunk is the robot body frame -->
+    <arg name="frame_id" value="trunk"/>
+    <arg name="odom_frame_id" value="odom"/>
+    <arg name="map_frame_id" value="map"/>
+
+    <!-- Database -->
+    <arg name="database_path" value="$(arg db_path)"/>
+    <arg name="args" value="--delete_db_on_start"/>
+
+    <!-- Visualization -->
+    <arg name="rtabmap_viz" value="true"/>
+    <arg name="rviz" value="false"/>
+
+    <!-- Sim time for bag playback -->
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+
+    <!-- Sync settings -->
+    <arg name="queue_size" value="30"/>
+    <arg name="wait_for_transform" value="0.5"/>
+    <arg name="approx_sync" value="true"/>
+    <arg name="approx_sync_max_interval" value="0.5"/>
+  </include>
+
+  <!-- ICP + SLAM tuning parameters (override defaults) -->
+  <group ns="rtabmap">
+    <param name="rtabmap/Reg/Strategy"              value="1"/>     <!-- 1=ICP registration -->
+    <param name="rtabmap/Reg/Force3DoF"              value="false"/>  <!-- Full 6DoF -->
+
+    <!-- ICP matching quality -->
+    <param name="rtabmap/Icp/PointToPlane"           value="true"/>   <!-- Point-to-plane ICP (better than P2P) -->
+    <param name="rtabmap/Icp/MaxCorrespondenceDistance" value="0.5"/>  <!-- 50cm max match distance (tighter) -->
+    <param name="rtabmap/Icp/Iterations"             value="30"/>     <!-- More iterations for convergence -->
+    <param name="rtabmap/Icp/VoxelSize"              value="0.1"/>    <!-- 10cm voxel filter (reduce noise) -->
+    <param name="rtabmap/Icp/CorrespondenceRatio"    value="0.2"/>    <!-- Min 20% matches required -->
+    <param name="rtabmap/Icp/MaxTranslation"         value="1.0"/>    <!-- Reject > 1m jumps -->
+    <param name="rtabmap/Icp/Epsilon"                value="0.001"/>  <!-- Convergence threshold -->
+    <param name="rtabmap/Icp/PointToPlaneK"          value="20"/>     <!-- Normals: K nearest neighbors -->
+    <param name="rtabmap/Icp/PointToPlaneRadius"     value="0.0"/>    <!-- 0 = use K instead -->
+
+    <!-- Proximity-based loop closure (spatial neighbor matching) -->
+    <param name="rtabmap/RGBD/ProximityBySpace"      value="true"/>
+    <param name="rtabmap/RGBD/ProximityMaxGraphDepth" value="0"/>     <!-- 0=unlimited graph depth -->
+    <param name="rtabmap/RGBD/ProximityPathMaxNeighbors" value="10"/>
+    <param name="rtabmap/RGBD/OptimizeFromGraphEnd"  value="false"/>  <!-- Optimize from start for stability -->
+    <param name="rtabmap/RGBD/AngularUpdate"         value="0.05"/>   <!-- ~3 deg: create node more often -->
+    <param name="rtabmap/RGBD/LinearUpdate"          value="0.05"/>   <!-- 5cm: create node more often -->
+
+    <!-- Memory / map quality -->
+    <param name="rtabmap/Grid/CellSize"              value="0.05"/>   <!-- 5cm occupancy grid -->
+    <param name="rtabmap/Grid/RangeMax"              value="15.0"/>   <!-- Ignore points > 15m -->
+    <param name="rtabmap/Grid/ClusterRadius"         value="1.0"/>
+    <param name="rtabmap/Grid/RayTracing"            value="true"/>
+  </group>
+</launch>

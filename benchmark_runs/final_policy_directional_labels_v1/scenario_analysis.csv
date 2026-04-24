@@ -1,0 +1,14 @@
+bag_id,scenario_name,scenario_type,primary_case,expected_action,consensus_action,consensus_vote_count,num_methods,num_nonempty_predictions,num_distinct_predictions,disagreement,consensus_matches_expected,review_case_without_review,geometry,internvl_sequence_image_navigation,internvl_single_image_navigation,qwen_sequence_image_navigation,qwen_single_image_navigation
+bag_01,no_person,empty_path,True,FORWARD,FORWARD,4,5,4,1,False,True,False,,FORWARD,FORWARD,FORWARD,FORWARD
+bag_02,person_center_stop,frontal_blocking_person,True,STOP,STOP,3,5,4,2,True,True,False,,STOP,STOP,STOP,REVIEW
+bag_03,person_on_left,lateral_person_static,False,RIGHT,STOP,3,5,4,2,True,False,False,,STOP,STOP,STOP,REVIEW
+bag_04,person_on_right,lateral_person_static,False,LEFT,STOP,2,5,4,3,True,False,False,,FORWARD,STOP,STOP,REVIEW
+bag_05,right_to_left_crossing,crossing_person,True,RIGHT,FORWARD,4,5,4,1,False,False,False,,FORWARD,FORWARD,FORWARD,FORWARD
+bag_06,left_to_right_far,crossing_person_far,True,FORWARD,FORWARD,3,5,4,2,True,True,False,,FORWARD,FORWARD,STOP,FORWARD
+bag_07,left_to_right_crossing,crossing_person,True,LEFT,FORWARD,2,5,4,3,True,False,False,,FORWARD,FORWARD,STOP,RIGHT
+bag_08,person_enters_frame,entering_person,True,STOP,FORWARD,4,5,4,1,False,False,False,,FORWARD,FORWARD,FORWARD,FORWARD
+bag_09,approaching_person,approaching_person,True,STOP,FORWARD,3,5,4,2,True,False,False,,FORWARD,FORWARD,FORWARD,REVIEW
+bag_10,receding_person,receding_person,True,FORWARD,FORWARD,2,5,4,3,True,True,False,,FORWARD,STOP,FORWARD,REVIEW
+bag_11,stationary_person,static_person,False,REVIEW,STOP,4,5,4,1,False,False,True,,STOP,STOP,STOP,STOP
+bag_12,two_people,multi_person,True,STOP,STOP,3,5,4,2,True,True,False,,STOP,STOP,STOP,REVIEW
+bag_13,empty_office,empty_scene,True,FORWARD,FORWARD,4,5,4,1,False,True,False,,FORWARD,FORWARD,FORWARD,FORWARD

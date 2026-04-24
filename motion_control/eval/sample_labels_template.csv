@@ -1,0 +1,2 @@
+sample_id,timestamp,frame_indices,input_type,ground_truth_action,human_motion,notes
+single_000000,0.0,0,single,STOP,left_to_right,example row

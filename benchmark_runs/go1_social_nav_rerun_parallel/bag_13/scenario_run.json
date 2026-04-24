@@ -1,0 +1,10 @@
+{
+  "bag_id": "bag_13",
+  "bag_path": "rosbag/13.bag",
+  "extracted_dir": "/home/aaquib/where-am-I/extracted_social_nav/bag_13",
+  "input_mode": "extracted",
+  "labels_path": "/home/aaquib/where-am-I/benchmark_runs/go1_social_nav_rerun_parallel/bag_13/labels.csv",
+  "scenario_name": "empty_office",
+  "sequence_samples_path": "/home/aaquib/where-am-I/benchmark_runs/go1_social_nav_rerun_parallel/bag_13/sequence_samples.jsonl",
+  "single_samples_path": "/home/aaquib/where-am-I/benchmark_runs/go1_social_nav_rerun_parallel/bag_13/single_samples.jsonl"
+}

@@ -1,0 +1,42 @@
+# Unitree Go1 Camera Intrinsics
+# Source: OV9282 stereo fisheye cameras (Go1 Pro/Edu)
+# NOTE: These are estimated values from research. Replace with calibrated values when available.
+# TODO: Get real intrinsics from robot UnitreeCamera SDK or OpenCV calibration.
+
+# All cameras are OV9282 global shutter, 1280x800, fisheye lens (~150° FOV)
+# The stereo baseline is ~45mm
+
+camera_face:
+  model: fisheye
+  sensor: OV9282
+  resolution: [1280, 800]
+  # Pinhole approximation (for gen_depth and RTAB-Map)
+  fx: 300.0
+  fy: 300.0
+  cx: 640.0
+  cy: 400.0
+  # Fisheye distortion coefficients (equidistant model)
+  distortion_model: equidistant
+  distortion_coefficients: [-0.0148, 0.0026, -0.0057, 0.0020]
+
+camera_left:
+  model: fisheye
+  sensor: OV9282
+  resolution: [1280, 800]
+  fx: 300.0
+  fy: 300.0
+  cx: 640.0
+  cy: 400.0
+  distortion_model: equidistant
+  distortion_coefficients: [-0.0148, 0.0026, -0.0057, 0.0020]
+
+camera_right:
+  model: fisheye
+  sensor: OV9282
+  resolution: [1280, 800]
+  fx: 300.0
+  fy: 300.0
+  cx: 640.0
+  cy: 400.0
+  distortion_model: equidistant
+  distortion_coefficients: [-0.0148, 0.0026, -0.0057, 0.0020]

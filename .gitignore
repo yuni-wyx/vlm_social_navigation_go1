@@ -1,0 +1,67 @@
+#Venv
+*.venv
+
+# Bags
+*.bag
+streaming/bags/*.bag
+
+# ROS build artifacts
+build/
+devel/
+install/
+logs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS files
+.DS_Store
+*~
+*.swp
+
+# IDE
+.vscode/
+.idea/
+.env.internvl
+.env.qwen
+
+# Large files
+*.tar.gz
+*.zip
+
+# TF debug files
+frames.gv
+frames.pdf
+
+# RTAB-Map output
+rtabmap/output/
+
+# Camera calibration output
+camera_calib/rectified/
+# Scene graph outputs (regenerated from scripts)
+scene_graph/output/
+scene_graph/detections/*/det_*.jpg
+# RTAB-Map large files
+rtabmap/output/rtabmap.db
+rtabmap/output/rtabmap_backup.db
+rtabmap/output/rtabmap_rgb/
+rtabmap/output/rtabmap_depth/
+rtabmap/output/rtabmap_calib/
+rtabmap/output/export/rtabmap_rgb/
+rtabmap/output/export/rtabmap_depth/
+rtabmap/output/export/rtabmap_calib/
+rtabmap/output/export/occupancy_grid.pgm
+rtabmap/output/export/images/
+*.pt
+
+# Claude Code local runtime state
+.claude/
+
+# Extracted social nav datasets (derived from rosbags; regenerated via
+# motion_control/scripts/prepare_social_nav_extracted.py)
+extracted_social_nav/
+
+# External SDK dependency; keep local but do not vendor into this repo
+unitree_legged_sdk/

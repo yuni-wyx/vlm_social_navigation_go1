@@ -1,0 +1,92 @@
+{
+  "rows": [
+    {
+      "bag_id": "bag_03",
+      "consensus_action": "STOP",
+      "consensus_matches_expected": false,
+      "consensus_vote_count": 3,
+      "disagreement": true,
+      "expected_action": "RIGHT",
+      "num_distinct_predictions": 2,
+      "num_methods": 5,
+      "num_nonempty_predictions": 4,
+      "predictions_by_method": {
+        "geometry": "",
+        "internvl_sequence_image_navigation": "STOP",
+        "internvl_single_image_navigation": "STOP",
+        "qwen_sequence_image_navigation": "STOP",
+        "qwen_single_image_navigation": "REVIEW"
+      },
+      "primary_case": false,
+      "review_case_without_review": false,
+      "scenario_name": "person_on_left",
+      "scenario_type": "lateral_person_static"
+    },
+    {
+      "bag_id": "bag_04",
+      "consensus_action": "STOP",
+      "consensus_matches_expected": false,
+      "consensus_vote_count": 2,
+      "disagreement": true,
+      "expected_action": "LEFT",
+      "num_distinct_predictions": 3,
+      "num_methods": 5,
+      "num_nonempty_predictions": 4,
+      "predictions_by_method": {
+        "geometry": "",
+        "internvl_sequence_image_navigation": "FORWARD",
+        "internvl_single_image_navigation": "STOP",
+        "qwen_sequence_image_navigation": "STOP",
+        "qwen_single_image_navigation": "REVIEW"
+      },
+      "primary_case": false,
+      "review_case_without_review": false,
+      "scenario_name": "person_on_right",
+      "scenario_type": "lateral_person_static"
+    },
+    {
+      "bag_id": "bag_05",
+      "consensus_action": "FORWARD",
+      "consensus_matches_expected": false,
+      "consensus_vote_count": 4,
+      "disagreement": false,
+      "expected_action": "RIGHT",
+      "num_distinct_predictions": 1,
+      "num_methods": 5,
+      "num_nonempty_predictions": 4,
+      "predictions_by_method": {
+        "geometry": "",
+        "internvl_sequence_image_navigation": "FORWARD",
+        "internvl_single_image_navigation": "FORWARD",
+        "qwen_sequence_image_navigation": "FORWARD",
+        "qwen_single_image_navigation": "FORWARD"
+      },
+      "primary_case": true,
+      "review_case_without_review": false,
+      "scenario_name": "right_to_left_crossing",
+      "scenario_type": "crossing_person"
+    },
+    {
+      "bag_id": "bag_07",
+      "consensus_action": "FORWARD",
+      "consensus_matches_expected": false,
+      "consensus_vote_count": 2,
+      "disagreement": true,
+      "expected_action": "LEFT",
+      "num_distinct_predictions": 3,
+      "num_methods": 5,
+      "num_nonempty_predictions": 4,
+      "predictions_by_method": {
+        "geometry": "",
+        "internvl_sequence_image_navigation": "FORWARD",
+        "internvl_single_image_navigation": "FORWARD",
+        "qwen_sequence_image_navigation": "STOP",
+        "qwen_single_image_navigation": "RIGHT"
+      },
+      "primary_case": true,
+      "review_case_without_review": false,
+      "scenario_name": "left_to_right_crossing",
+      "scenario_type": "crossing_person"
+    }
+  ]
+}

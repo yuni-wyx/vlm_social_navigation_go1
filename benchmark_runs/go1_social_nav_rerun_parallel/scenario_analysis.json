@@ -1,0 +1,290 @@
+{
+  "rows": [
+    {
+      "bag_id": "bag_01",
+      "consensus_action": "FORWARD",
+      "consensus_matches_expected": true,
+      "consensus_vote_count": 4,
+      "disagreement": false,
+      "expected_action": "FORWARD",
+      "num_distinct_predictions": 1,
+      "num_methods": 5,
+      "num_nonempty_predictions": 4,
+      "predictions_by_method": {
+        "geometry": "",
+        "internvl_sequence_image_navigation": "FORWARD",
+        "internvl_single_image_navigation": "FORWARD",
+        "qwen_sequence_image_navigation": "FORWARD",
+        "qwen_single_image_navigation": "FORWARD"
+      },
+      "primary_case": true,
+      "review_case_without_review": false,
+      "scenario_name": "no_person",
+      "scenario_type": "empty_path"
+    },
+    {
+      "bag_id": "bag_02",
+      "consensus_action": "STOP",
+      "consensus_matches_expected": true,
+      "consensus_vote_count": 3,
+      "disagreement": true,
+      "expected_action": "STOP",
+      "num_distinct_predictions": 2,
+      "num_methods": 5,
+      "num_nonempty_predictions": 4,
+      "predictions_by_method": {
+        "geometry": "",
+        "internvl_sequence_image_navigation": "FORWARD",
+        "internvl_single_image_navigation": "STOP",
+        "qwen_sequence_image_navigation": "STOP",
+        "qwen_single_image_navigation": "STOP"
+      },
+      "primary_case": true,
+      "review_case_without_review": false,
+      "scenario_name": "person_center_stop",
+      "scenario_type": "frontal_blocking_person"
+    },
+    {
+      "bag_id": "bag_03",
+      "consensus_action": "STOP",
+      "consensus_matches_expected": false,
+      "consensus_vote_count": 3,
+      "disagreement": true,
+      "expected_action": "REVIEW",
+      "num_distinct_predictions": 2,
+      "num_methods": 5,
+      "num_nonempty_predictions": 4,
+      "predictions_by_method": {
+        "geometry": "",
+        "internvl_sequence_image_navigation": "FORWARD",
+        "internvl_single_image_navigation": "STOP",
+        "qwen_sequence_image_navigation": "STOP",
+        "qwen_single_image_navigation": "STOP"
+      },
+      "primary_case": false,
+      "review_case_without_review": true,
+      "scenario_name": "person_on_left",
+      "scenario_type": "lateral_person_static"
+    },
+    {
+      "bag_id": "bag_04",
+      "consensus_action": "STOP",
+      "consensus_matches_expected": false,
+      "consensus_vote_count": 3,
+      "disagreement": true,
+      "expected_action": "REVIEW",
+      "num_distinct_predictions": 2,
+      "num_methods": 5,
+      "num_nonempty_predictions": 4,
+      "predictions_by_method": {
+        "geometry": "",
+        "internvl_sequence_image_navigation": "FORWARD",
+        "internvl_single_image_navigation": "STOP",
+        "qwen_sequence_image_navigation": "STOP",
+        "qwen_single_image_navigation": "STOP"
+      },
+      "primary_case": false,
+      "review_case_without_review": true,
+      "scenario_name": "person_on_right",
+      "scenario_type": "lateral_person_static"
+    },
+    {
+      "bag_id": "bag_05",
+      "consensus_action": "FORWARD",
+      "consensus_matches_expected": false,
+      "consensus_vote_count": 3,
+      "disagreement": true,
+      "expected_action": "STOP",
+      "num_distinct_predictions": 2,
+      "num_methods": 5,
+      "num_nonempty_predictions": 4,
+      "predictions_by_method": {
+        "geometry": "",
+        "internvl_sequence_image_navigation": "FORWARD",
+        "internvl_single_image_navigation": "FORWARD",
+        "qwen_sequence_image_navigation": "STOP",
+        "qwen_single_image_navigation": "FORWARD"
+      },
+      "primary_case": true,
+      "review_case_without_review": false,
+      "scenario_name": "right_to_left_crossing",
+      "scenario_type": "crossing_person"
+    },
+    {
+      "bag_id": "bag_06",
+      "consensus_action": "FORWARD",
+      "consensus_matches_expected": true,
+      "consensus_vote_count": 2,
+      "disagreement": true,
+      "expected_action": "FORWARD",
+      "num_distinct_predictions": 2,
+      "num_methods": 5,
+      "num_nonempty_predictions": 4,
+      "predictions_by_method": {
+        "geometry": "",
+        "internvl_sequence_image_navigation": "FORWARD",
+        "internvl_single_image_navigation": "FORWARD",
+        "qwen_sequence_image_navigation": "STOP",
+        "qwen_single_image_navigation": "STOP"
+      },
+      "primary_case": true,
+      "review_case_without_review": false,
+      "scenario_name": "left_to_right_far",
+      "scenario_type": "crossing_person_far"
+    },
+    {
+      "bag_id": "bag_07",
+      "consensus_action": "STOP",
+      "consensus_matches_expected": true,
+      "consensus_vote_count": 3,
+      "disagreement": true,
+      "expected_action": "STOP",
+      "num_distinct_predictions": 2,
+      "num_methods": 5,
+      "num_nonempty_predictions": 4,
+      "predictions_by_method": {
+        "geometry": "",
+        "internvl_sequence_image_navigation": "FORWARD",
+        "internvl_single_image_navigation": "STOP",
+        "qwen_sequence_image_navigation": "STOP",
+        "qwen_single_image_navigation": "STOP"
+      },
+      "primary_case": true,
+      "review_case_without_review": false,
+      "scenario_name": "left_to_right_crossing",
+      "scenario_type": "crossing_person"
+    },
+    {
+      "bag_id": "bag_08",
+      "consensus_action": "FORWARD",
+      "consensus_matches_expected": false,
+      "consensus_vote_count": 4,
+      "disagreement": false,
+      "expected_action": "STOP",
+      "num_distinct_predictions": 1,
+      "num_methods": 5,
+      "num_nonempty_predictions": 4,
+      "predictions_by_method": {
+        "geometry": "",
+        "internvl_sequence_image_navigation": "FORWARD",
+        "internvl_single_image_navigation": "FORWARD",
+        "qwen_sequence_image_navigation": "FORWARD",
+        "qwen_single_image_navigation": "FORWARD"
+      },
+      "primary_case": true,
+      "review_case_without_review": false,
+      "scenario_name": "person_enters_frame",
+      "scenario_type": "entering_person"
+    },
+    {
+      "bag_id": "bag_09",
+      "consensus_action": "FORWARD",
+      "consensus_matches_expected": false,
+      "consensus_vote_count": 2,
+      "disagreement": true,
+      "expected_action": "STOP",
+      "num_distinct_predictions": 2,
+      "num_methods": 5,
+      "num_nonempty_predictions": 4,
+      "predictions_by_method": {
+        "geometry": "",
+        "internvl_sequence_image_navigation": "FORWARD",
+        "internvl_single_image_navigation": "FORWARD",
+        "qwen_sequence_image_navigation": "STOP",
+        "qwen_single_image_navigation": "STOP"
+      },
+      "primary_case": true,
+      "review_case_without_review": false,
+      "scenario_name": "approaching_person",
+      "scenario_type": "approaching_person"
+    },
+    {
+      "bag_id": "bag_10",
+      "consensus_action": "STOP",
+      "consensus_matches_expected": false,
+      "consensus_vote_count": 3,
+      "disagreement": true,
+      "expected_action": "FORWARD",
+      "num_distinct_predictions": 2,
+      "num_methods": 5,
+      "num_nonempty_predictions": 4,
+      "predictions_by_method": {
+        "geometry": "",
+        "internvl_sequence_image_navigation": "FORWARD",
+        "internvl_single_image_navigation": "STOP",
+        "qwen_sequence_image_navigation": "STOP",
+        "qwen_single_image_navigation": "STOP"
+      },
+      "primary_case": true,
+      "review_case_without_review": false,
+      "scenario_name": "receding_person",
+      "scenario_type": "receding_person"
+    },
+    {
+      "bag_id": "bag_11",
+      "consensus_action": "STOP",
+      "consensus_matches_expected": false,
+      "consensus_vote_count": 4,
+      "disagreement": false,
+      "expected_action": "REVIEW",
+      "num_distinct_predictions": 1,
+      "num_methods": 5,
+      "num_nonempty_predictions": 4,
+      "predictions_by_method": {
+        "geometry": "",
+        "internvl_sequence_image_navigation": "STOP",
+        "internvl_single_image_navigation": "STOP",
+        "qwen_sequence_image_navigation": "STOP",
+        "qwen_single_image_navigation": "STOP"
+      },
+      "primary_case": false,
+      "review_case_without_review": true,
+      "scenario_name": "stationary_person",
+      "scenario_type": "static_person"
+    },
+    {
+      "bag_id": "bag_12",
+      "consensus_action": "STOP",
+      "consensus_matches_expected": true,
+      "consensus_vote_count": 3,
+      "disagreement": true,
+      "expected_action": "STOP",
+      "num_distinct_predictions": 2,
+      "num_methods": 5,
+      "num_nonempty_predictions": 4,
+      "predictions_by_method": {
+        "geometry": "",
+        "internvl_sequence_image_navigation": "FORWARD",
+        "internvl_single_image_navigation": "STOP",
+        "qwen_sequence_image_navigation": "STOP",
+        "qwen_single_image_navigation": "STOP"
+      },
+      "primary_case": true,
+      "review_case_without_review": false,
+      "scenario_name": "two_people",
+      "scenario_type": "multi_person"
+    },
+    {
+      "bag_id": "bag_13",
+      "consensus_action": "FORWARD",
+      "consensus_matches_expected": true,
+      "consensus_vote_count": 4,
+      "disagreement": false,
+      "expected_action": "FORWARD",
+      "num_distinct_predictions": 1,
+      "num_methods": 5,
+      "num_nonempty_predictions": 4,
+      "predictions_by_method": {
+        "geometry": "",
+        "internvl_sequence_image_navigation": "FORWARD",
+        "internvl_single_image_navigation": "FORWARD",
+        "qwen_sequence_image_navigation": "FORWARD",
+        "qwen_single_image_navigation": "FORWARD"
+      },
+      "primary_case": true,
+      "review_case_without_review": false,
+      "scenario_name": "empty_office",
+      "scenario_type": "empty_scene"
+    }
+  ]
+}
