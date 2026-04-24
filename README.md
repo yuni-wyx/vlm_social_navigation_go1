@@ -9,13 +9,13 @@ The core question from the proposal is:
 > Can a VLM support socially aware navigation decisions on Unitree Go1, and can
 > that decision layer be integrated into a practical robot system?
 
-The final implementation answers that question with an offline benchmark and a
-conservative real-time controller interface:
+The current repository addresses that question with an offline benchmark and a
+conservative controller-side safety interface:
 
 - offline, the VLM predicts social navigation actions from front-camera image
   sequences
-- online, the robot uses those predictions only through a safety projection
-  layer rather than executing raw VLM outputs directly
+- controller-side code paths project raw VLM decisions through a safety layer
+  rather than treating them as validated robot actions
 
 ## Project Summary
 
@@ -44,8 +44,8 @@ The implemented system has four main parts:
 2. An offline benchmark for single-image and sequence-based VLM evaluation.
 3. Prompt-policy designs for Qwen and InternVL with explicit temporal social
    reasoning.
-4. A real-time controller path for Go1 where VLM decisions are safety-projected
-   before they can affect hardware.
+4. Controller-side experiments for Go1 where VLM decisions are safety-projected
+   before they could be considered for hardware execution.
 
 Key files:
 

@@ -1,6 +1,14 @@
-# Scene Graph — Semantics + Junctions
+# Scene Graph Utilities — Semantics + Junctions
 
-Build a multi-layer scene graph from Go1 sensor data, combining YOLO World open-vocab object detection with skeleton-based junction classification.
+This folder currently contains scene-graph preparation utilities, not a
+finished end-to-end scene-graph pipeline.
+What is implemented here today is:
+
+- open-vocabulary object detection from Go1 imagery
+- junction classification from occupancy-grid structure
+
+What is not yet implemented as a completed workflow is the final fusion step
+that would turn those outputs into one unified multi-layer scene graph.
 
 ## Quick Start
 
@@ -14,7 +22,7 @@ python3 scene_graph/detect_objects.py \
 python3 scene_graph/detect_junctions.py \
     --map rtabmap/output/map.pgm
 
-# 3. (Coming) Build unified scene graph
+# 3. (Planned, not fully implemented) Build unified scene graph
 python3 scene_graph/build_graph.py \
     --detections scene_graph/detections/detections.json \
     --junctions scene_graph/junctions/junctions.json
@@ -41,14 +49,14 @@ Classifies corridor junctions from 2D occupancy grids:
 
 Uses morphological skeletonization + branch point analysis — no ML needed.
 
-## Files
+## Current Files
 
 ```
 scene_graph/
 ├── detect_objects.py      # YOLO World open-vocab detector
 ├── detect_junctions.py    # Skeleton junction classifier
-├── build_graph.py         # (Coming) Fuse into NetworkX graph
-├── visualize.py           # (Coming) Render on map
+├── build_graph.py         # Partial / planned graph-fusion entry point
+├── visualize.py           # Planned rendering helper
 ├── detections/            # YOLO output (gitignored)
 └── junctions/             # Junction output (gitignored)
 ```

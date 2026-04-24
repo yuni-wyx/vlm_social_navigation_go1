@@ -2,73 +2,77 @@
 
 ## Go1 Internal Architecture
 
+This document explains the streaming setup and the ROS-side architecture.
+Operational secrets, live credentials, and site-specific network details should
+be kept in a separate private runbook rather than committed here.
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                      Unitree Go1                            │
 │                                                             │
 │  ┌──────────────┐   192.168.123.x internal LAN (switch)     │
 │  │ Raspberry Pi  │◄──────────────────────────────────────┐   │
-│  │ .123.161      │  (runs roscore, publishes TF + odom)  │   │
-│  │ pw: 123       │                                       │   │
+│  │ .123.xxx      │  (runs roscore, publishes TF + odom)  │   │
 │  └──────┬───────┘                                        │   │
 │         │ eth (switch)                                   │   │
 │  ┌──────┴───────┐  ┌──────────────┐  ┌──────────────┐   │   │
 │  │  Main NX     │  │    NX 2      │  │  Head Nano   │   │   │
-│  │ (NX1/.15)    │  │   (.14)      │  │   (.13)      │   │   │
-│  │ unitree@     │  │ unitree@     │  │ unitree@     │   │   │
-│  │ pw: 123      │  │ pw: 123      │  │ pw: 123      │   │   │
+│  │ (NX1/.xx)    │  │   (.xx)      │  │   (.xx)      │   │   │
+│  │ service acct │  │ service acct │  │ service acct │   │   │
 │  │              │  │              │  │              │   │   │
 │  │ LiDAR driver │  │ Cam L/R      │  │ Face/Chin cam│   │   │
 │  │ Cam 5 (rear) │  │ (3 & 4)      │  │ (1 & 2)     │   │   │
 │  └──────────────┘  └──────────────┘  └──────────────┘   │   │
 │                                                             │
-│  router "dog_go_zoom" plugged into the internal switch      │
+│  dedicated robot router plugged into the internal switch    │
 │  → gives laptop direct access to the 192.168.123.x LAN     │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Key IPs
+### Host Roles
 
-| Computer | IP | SSH User/Password | Notes |
-|----------|----|--------------------|-------|
-| Raspberry Pi | `192.168.123.161` | `pi` / `123` | roscore, TF, odom |
-| Main NX (NX1) | `192.168.123.15` | `unitree` / `123` | LiDAR, has OpenCV |
-| NX 2 | `192.168.123.14` | `unitree` / `123` | Left/Right cams, **no OpenCV** |
-| Head Nano | `192.168.123.13` | `unitree` / `123` | Face cam, has OpenCV |
-| Laptop | `192.168.123.67` | — | Static IP via `dog_go_zoom` |
+| Computer | Role | Notes |
+|----------|------|-------|
+| Raspberry Pi | ROS master, TF, odometry | publishes core ROS graph |
+| Main NX (NX1) | LiDAR and robot-side bridge | has OpenCV |
+| NX 2 | Left/Right cameras | no OpenCV in the tested setup |
+| Head Nano | Front / head camera | has OpenCV |
+| Laptop | ROS client and relay host | runs the relay and recording scripts |
 
 ---
 
 ## Step 1 — Connect Laptop to Dog Network
 
-### Recommended: `dog_go_zoom` Router (Static IP)
+### Recommended: Dedicated Router / Static IP Profile
 
-A router named `dog_go_zoom` is physically connected to the Go1's internal Ethernet switch. This gives the laptop **direct access** to all internal computers.
+A dedicated router can be connected to the Go1's internal Ethernet switch so
+the laptop gets direct access to the robot-side computers.
 
 ```bash
-# One-time: create static IP connection profile
-nmcli connection add type wifi con-name "dog_go_zoom_static" \
-  ifname wlx8c3bad120bdc ssid "dog_go_zoom" \
-  wifi-sec.key-mgmt wpa-psk wifi-sec.psk "eces111A" \
-  ipv4.method manual ipv4.addresses "192.168.123.67/24" \
+# One-time: create a static IP connection profile for your local robot network
+nmcli connection add type wifi con-name "go1_static" \
+  ifname YOUR_WIFI_IFACE ssid YOUR_ROBOT_AP_SSID \
+  wifi-sec.key-mgmt wpa-psk wifi-sec.psk YOUR_ROBOT_AP_PASSWORD \
+  ipv4.method manual ipv4.addresses "YOUR_LAPTOP_IP/24" \
   ipv4.never-default yes
 
 # Connect
-nmcli connection up "dog_go_zoom_static"
+nmcli connection up "go1_static"
 
-# Verify: should be able to ping ALL internal IPs directly
-ping -c 1 192.168.123.161  # Pi
-ping -c 1 192.168.123.15   # NX1
+# Verify connectivity to your robot-side hosts
+ping -c 1 YOUR_ROS_MASTER_IP
+ping -c 1 YOUR_NX1_IP
 ```
 
-> **Why not direct Go1 WiFi?** The Go1 broadcasts `Unitree_Go337822A` (pw: `00000000`), but that WiFi only bridges traffic to/from the Pi. You cannot directly SSH to NX1/NX2/Nano from it.
+> In the tested setup, the dedicated router path was more reliable than direct
+> robot Wi-Fi because it provided direct access to the internal hosts.
 
 ### Hostname Fix (one-time)
 
-The Pi's hostname `raspberrypi` must resolve to the correct IP on the laptop:
+The ROS master hostname must resolve correctly on the laptop:
 
 ```bash
-echo "192.168.123.161 raspberrypi" | sudo tee -a /etc/hosts
+echo "YOUR_ROS_MASTER_IP YOUR_ROS_MASTER_HOSTNAME" | sudo tee -a /etc/hosts
 ```
 
 Without this, ROS nodes that use `raspberrypi` as their hostname will fail to communicate.
@@ -80,8 +84,8 @@ Without this, ROS nodes that use `raspberrypi` as their hostname will fail to co
 On the laptop, set these in **every terminal**:
 
 ```bash
-export ROS_MASTER_URI=http://192.168.123.161:11311
-export ROS_IP=192.168.123.67
+export ROS_MASTER_URI=http://YOUR_ROS_MASTER_IP:11311
+export ROS_IP=YOUR_LAPTOP_IP
 source /opt/ros/noetic/setup.bash
 
 # Verify
@@ -97,13 +101,14 @@ rostopic list
 Fix using UTC to avoid timezone issues between computers:
 
 ```bash
-# Compute UTC time on laptop, then set on each computer
+# Compute UTC time on laptop, then set on each computer using your private
+# hostnames / credentials from a non-committed runbook.
 UTCNOW=$(date -u "+%Y-%m-%d %H:%M:%S")
 
-sshpass -p '123' ssh -t pi@192.168.123.161 "echo '123' | sudo -S date -u -s '$UTCNOW'"
-sshpass -p '123' ssh -t unitree@192.168.123.15 "echo '123' | sudo -S date -u -s '$UTCNOW'"
-sshpass -p '123' ssh -t unitree@192.168.123.14 "echo '123' | sudo -S date -u -s '$UTCNOW'"
-sshpass -p '123' ssh -t unitree@192.168.123.13 "echo '123' | sudo -S date -u -s '$UTCNOW'"
+ssh YOUR_PI_HOST "sudo date -u -s '$UTCNOW'"
+ssh YOUR_NX1_HOST "sudo date -u -s '$UTCNOW'"
+ssh YOUR_NX2_HOST "sudo date -u -s '$UTCNOW'"
+ssh YOUR_HEAD_HOST "sudo date -u -s '$UTCNOW'"
 ```
 
 > **Important**: The Pi is in HDT timezone, NX1/NX2 are in MDT. Using `date -u -s` sets UTC directly, avoiding mismatches where the same local time string produces different UNIX epoch values.
@@ -129,11 +134,11 @@ These are published automatically when the Go1 boots:
 The LiDAR is a **Robosense** using `rslidar_sdk`. It is **not autostarted**.
 
 ```bash
-sshpass -p '123' ssh unitree@192.168.123.15 \
+ssh YOUR_NX1_HOST \
   'source /opt/ros/melodic/setup.bash; \
-   source ~/UnitreeSLAM/catkin_lidar_slam_3d/devel/setup.bash; \
-   export ROS_MASTER_URI=http://192.168.123.161:11311; \
-   export ROS_IP=192.168.123.15; \
+   source ~/YOUR_LIDAR_WS/devel/setup.bash; \
+   export ROS_MASTER_URI=http://YOUR_ROS_MASTER_IP:11311; \
+   export ROS_IP=YOUR_NX1_IP; \
    nohup roslaunch rslidar_sdk start_for_unitree_lidar_slam_3d.launch > /tmp/lidar.log 2>&1 &'
 ```
 
@@ -152,16 +157,16 @@ NX2 does **not have OpenCV or cv_bridge**. We use a custom `ffmpeg`-based publis
 
 ```bash
 # 1. Kill autostarted depth camera processes that hold /dev/video*
-sshpass -p '123' ssh unitree@192.168.123.14 \
+ssh YOUR_NX2_HOST \
   'pkill -9 -f "point_cloud_node|example_point" 2>/dev/null; sleep 2'
 
 # 2. Deploy the ffmpeg publisher
-sshpass -p '123' scp scripts/rgb_pub_ffmpeg.py unitree@192.168.123.14:/tmp/
+scp scripts/rgb_pub_ffmpeg.py YOUR_NX2_HOST:/tmp/
 
 # 3. Launch right (video0) and left (video1) cameras
-sshpass -p '123' ssh unitree@192.168.123.14 \
+ssh YOUR_NX2_HOST \
   'source /opt/ros/melodic/setup.bash; \
-   export ROS_MASTER_URI=http://192.168.123.161:11311; export ROS_IP=192.168.123.14; \
+   export ROS_MASTER_URI=http://YOUR_ROS_MASTER_IP:11311; export ROS_IP=YOUR_NX2_IP; \
    nohup python /tmp/rgb_pub_ffmpeg.py camera_right 0 > /tmp/rgb_right.log 2>&1 & \
    nohup python /tmp/rgb_pub_ffmpeg.py camera_left 1 > /tmp/rgb_left.log 2>&1 &'
 ```
@@ -245,32 +250,32 @@ Use the launch script to automate clock fixes and sensor launches:
 ### Manual Quick Start
 
 ```bash
-# 1. Connect to dog_go_zoom
-nmcli connection up "dog_go_zoom_static"
+# 1. Connect to your robot-network profile
+nmcli connection up "go1_static"
 
 # 2. ROS env (every terminal)
-export ROS_MASTER_URI=http://192.168.123.161:11311
-export ROS_IP=192.168.123.67
+export ROS_MASTER_URI=http://YOUR_ROS_MASTER_IP:11311
+export ROS_IP=YOUR_LAPTOP_IP
 source /opt/ros/noetic/setup.bash
 
 # 3. Fix clocks (after every robot reboot)
 UTCNOW=$(date -u "+%Y-%m-%d %H:%M:%S")
-sshpass -p '123' ssh -t pi@192.168.123.161 "echo '123' | sudo -S date -u -s '$UTCNOW'"
-sshpass -p '123' ssh -t unitree@192.168.123.15 "echo '123' | sudo -S date -u -s '$UTCNOW'"
-sshpass -p '123' ssh -t unitree@192.168.123.14 "echo '123' | sudo -S date -u -s '$UTCNOW'"
+ssh YOUR_PI_HOST "sudo date -u -s '$UTCNOW'"
+ssh YOUR_NX1_HOST "sudo date -u -s '$UTCNOW'"
+ssh YOUR_NX2_HOST "sudo date -u -s '$UTCNOW'"
 
 # 4. Launch LiDAR (NX1)
-sshpass -p '123' ssh unitree@192.168.123.15 \
+ssh YOUR_NX1_HOST \
   'source /opt/ros/melodic/setup.bash; \
-   source ~/UnitreeSLAM/catkin_lidar_slam_3d/devel/setup.bash; \
-   export ROS_MASTER_URI=http://192.168.123.161:11311; export ROS_IP=192.168.123.15; \
+   source ~/YOUR_LIDAR_WS/devel/setup.bash; \
+   export ROS_MASTER_URI=http://YOUR_ROS_MASTER_IP:11311; export ROS_IP=YOUR_NX1_IP; \
    nohup roslaunch rslidar_sdk start_for_unitree_lidar_slam_3d.launch > /tmp/lidar.log 2>&1 &'
 
 # 5. Launch side cameras (NX2) — kill autostart first
-sshpass -p '123' ssh unitree@192.168.123.14 \
+ssh YOUR_NX2_HOST \
   'pkill -9 -f "point_cloud_node|example_point" 2>/dev/null; sleep 2; \
    source /opt/ros/melodic/setup.bash; \
-   export ROS_MASTER_URI=http://192.168.123.161:11311; export ROS_IP=192.168.123.14; \
+   export ROS_MASTER_URI=http://YOUR_ROS_MASTER_IP:11311; export ROS_IP=YOUR_NX2_IP; \
    nohup python /tmp/rgb_pub_ffmpeg.py camera_right 0 > /tmp/rgb_right.log 2>&1 & \
    nohup python /tmp/rgb_pub_ffmpeg.py camera_left 1 > /tmp/rgb_left.log 2>&1 &'
 
@@ -301,12 +306,12 @@ rosrun rviz rviz -d go1_rviz.rviz
 
 | Problem | Cause | Fix |
 |---------|-------|-----|
-| `rostopic list` empty | Wrong `ROS_MASTER_URI` or WiFi disconnected | `ping 192.168.123.161`; check `ROS_MASTER_URI` |
-| Topics visible, `echo` empty | On Go1 direct WiFi (not `dog_go_zoom`) | Use `dog_go_zoom` for full network access |
+| `rostopic list` empty | Wrong `ROS_MASTER_URI` or WiFi disconnected | `ping YOUR_ROS_MASTER_IP`; check `ROS_MASTER_URI` |
+| Topics visible, `echo` empty | On a partial network path instead of the internal robot LAN | Use your dedicated robot-network profile for full host access |
 | `TF_OLD_DATA` | Clock wrong on robot computers | Fix clocks with `date -u -s` (see Step 3) |
-| LiDAR visible in `trunk` but not `odom` | Pi clock still wrong (timestamps 6 months off) | Fix Pi clock specifically: `ssh pi@...` + `date -u -s` |
+| LiDAR visible in `trunk` but not `odom` | Pi clock still wrong (timestamps far off) | Fix the ROS-master clock specifically with `ssh YOUR_PI_HOST` + `date -u -s` |
 | "No transform from uodom to odom" | Disconnected TF trees | Run `sensor_relay.py` — use relayed topics |
-| SSH hangs to NX1/NX2 | Stale connections or dog_go_zoom router issue | Wait/retry; power-cycle `dog_go_zoom` router if needed |
+| SSH hangs to NX1/NX2 | Stale connections or router / LAN issue | Wait and retry; if needed, restart your dedicated robot-network path |
 | Camera shows black / "no new messages" | Autostarted `point_cloud_node` holds device | Kill it: `pkill -9 -f point_cloud_node` then launch publisher |
 | Side cameras not working | NX2 has no OpenCV | Use `rgb_pub_ffmpeg.py` (ffmpeg-based, no OpenCV dependency) |
 | Camera images look spherical | Fisheye lens distortion | Normal — undistort with camera calibration if needed |
